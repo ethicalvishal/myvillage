@@ -1,0 +1,379 @@
+/* Modern CSS Reset and Base Styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #f0fdf4 0%, #fefce8 50%, #f0f9ff 100%);
+  min-height: 100vh;
+}
+
+/* Add Noto Sans Devanagari font import */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&display=swap');
+
+/* Apply Noto Sans Devanagari to Hindi text globally */
+.hindi-text, [lang='hi'] {
+  font-family: 'Noto Sans Devanagari', sans-serif !important;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+}
+
+/* Optionally, apply to all headings if language is Hindi */
+h1.hindi-text, h2.hindi-text, h3.hindi-text, h4.hindi-text, h5.hindi-text, h6.hindi-text {
+  font-family: 'Noto Sans Devanagari', sans-serif !important;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+}
+
+/* Utility class for React: add className={i18n.language === 'hi' ? 'hindi-text' : ''} to headings */
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #22c55e, #16a34a);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #16a34a, #15803d);
+}
+
+/* Modern Button Styles */
+.btn-primary {
+  @apply bg-gradient-to-r from-primary-600 to-primary-700 text-white font-semibold px-6 py-3 rounded-xl shadow-medium hover:shadow-large transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-primary-300;
+}
+
+.btn-secondary {
+  @apply bg-gradient-to-r from-secondary-500 to-secondary-600 text-white font-semibold px-6 py-3 rounded-xl shadow-medium hover:shadow-large transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-secondary-300;
+}
+
+.btn-outline {
+  @apply border-2 border-primary-600 text-primary-700 font-semibold px-6 py-3 rounded-xl hover:bg-primary-600 hover:text-white transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-primary-300;
+}
+
+/* Card Styles */
+.card {
+  @apply bg-white/95 backdrop-blur-sm rounded-2xl shadow-soft border border-white/20 hover:shadow-medium transition-all duration-300;
+}
+
+.card-elevated {
+  @apply bg-white/95 backdrop-blur-sm rounded-2xl shadow-medium border border-white/20 hover:shadow-large hover:-translate-y-1 transition-all duration-300;
+}
+
+.card-glow {
+  @apply bg-white/95 backdrop-blur-sm rounded-2xl shadow-glow border border-primary-200/50 hover:shadow-glow-lg transition-all duration-300;
+}
+
+/* Gradient Text */
+.gradient-text {
+  background: linear-gradient(135deg, #22c55e, #16a34a, #15803d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.18;
+  padding-bottom: 0.05em;
+  overflow: visible;
+}
+
+.gradient-text-secondary {
+  background: linear-gradient(135deg, #facc15, #eab308, #ca8a04);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Modern Navigation */
+.nav-link {
+  @apply relative px-4 py-2 text-neutral-700 font-medium rounded-xl transition-all duration-300 hover:text-primary-700 hover:bg-primary-50;
+}
+
+.nav-link.active {
+  @apply text-primary-700 bg-primary-50 shadow-soft;
+}
+
+.nav-link::after {
+  content: '';
+  @apply absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-primary-600 to-primary-700 transition-all duration-300 transform -translate-x-1/2;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  @apply w-3/4;
+}
+
+/* Hero Section Styles */
+.hero-gradient {
+  background: linear-gradient(135deg, 
+    rgba(34, 197, 94, 0.1) 0%, 
+    rgba(250, 204, 21, 0.1) 25%, 
+    rgba(14, 165, 233, 0.1) 50%, 
+    rgba(34, 197, 94, 0.1) 75%, 
+    rgba(250, 204, 21, 0.1) 100%);
+}
+
+/* Floating Animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Pulse Animation */
+@keyframes pulse-glow {
+  0%, 100% { 
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+    transform: scale(1);
+  }
+  50% { 
+    box-shadow: 0 0 40px rgba(34, 197, 94, 0.6);
+    transform: scale(1.05);
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Modern Icons */
+.icon-modern {
+  @apply w-6 h-6 text-primary-600;
+}
+
+.icon-large {
+  @apply w-8 h-8 text-primary-600;
+}
+
+.icon-xl {
+  @apply w-12 h-12 text-primary-600;
+}
+
+/* Stats Cards */
+.stat-card {
+  @apply bg-gradient-to-br from-white/90 to-white/70 backdrop-blur-sm rounded-2xl p-6 border border-white/30 shadow-soft hover:shadow-medium transition-all duration-300 transform hover:scale-105;
+}
+
+.stat-number {
+  @apply text-3xl font-bold gradient-text mb-2;
+}
+
+.stat-label {
+  @apply text-neutral-600 font-medium;
+}
+
+/* Feature Cards */
+.feature-card {
+  @apply bg-white/95 backdrop-blur-sm rounded-2xl p-6 border border-white/20 shadow-soft hover:shadow-medium transition-all duration-300 transform hover:-translate-y-1;
+}
+
+.feature-icon {
+  @apply w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center text-white mb-4;
+}
+
+/* Timeline Styles */
+.timeline-item {
+  @apply relative pl-8 pb-8;
+}
+
+.timeline-item::before {
+  content: '';
+  @apply absolute left-0 top-2 w-3 h-3 bg-primary-500 rounded-full;
+}
+
+.timeline-item::after {
+  content: '';
+  @apply absolute left-1.5 top-5 w-0.5 h-full bg-gradient-to-b from-primary-300 to-transparent;
+}
+
+.timeline-item:last-child::after {
+  @apply hidden;
+}
+
+/* Loading Spinner */
+.spinner {
+  @apply w-6 h-6 border-2 border-primary-200 border-t-primary-600 rounded-full animate-spin;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .card {
+    @apply rounded-xl;
+  }
+  
+  .btn-primary,
+  .btn-secondary,
+  .btn-outline {
+    @apply px-4 py-2 text-sm;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  }
+  
+  .card {
+    @apply bg-neutral-800/95 border-neutral-700/50;
+  }
+  
+  .nav-link {
+    @apply text-neutral-300 hover:text-primary-400 hover:bg-neutral-800;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus styles for accessibility */
+*:focus {
+  @apply outline-none ring-2 ring-primary-500 ring-offset-2;
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+
+@keyframes glow {
+  0% { box-shadow: 0 0 0 0 #b6e2a1; }
+  100% { box-shadow: 0 0 16px 4px #b6e2a1; }
+}
+.animate-glow {
+  animation: glow 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes shimmer {
+  0% { opacity: 1; }
+  50% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+.animate-shimmer {
+  animation: shimmer 2s linear infinite;
+}
+
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.animate-bounce-slow {
+  animation: bounce-slow 3s infinite;
+}
+
+.drop-shadow-md {
+  text-shadow: 0 2px 8px rgba(60,80,40,0.10), 0 1px 0 #fff;
+}
+
+@media (max-width: 640px) {
+  .drop-shadow-md { text-shadow: 0 1px 4px rgba(60,80,40,0.10), 0 1px 0 #fff; }
+}
+
+@keyframes sway {
+  0% { transform: rotate(-3deg); }
+  100% { transform: rotate(3deg); }
+}
+.animate-sway {
+  animation: sway 3s ease-in-out infinite alternate;
+}
+
+@keyframes cloud-move {
+  0% { left: 40%; }
+  100% { left: 60%; }
+}
+.animate-cloud-move {
+  animation: cloud-move 18s linear infinite;
+}
+
+@keyframes sparkle {
+  0%, 100% { filter: drop-shadow(0 0 0 #fff); }
+  50% { filter: drop-shadow(0 0 8px #fffbe9); }
+}
+.animate-sparkle {
+  animation: sparkle 1.2s infinite;
+}
+
+@keyframes gradient-move {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+.group-hover\:animate-bounce:hover { animation: bounce 0.7s; }
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Enhanced Card Styles */
+.enhanced-card {
+  @apply bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-green-200/60 p-8 transition-all duration-300 relative overflow-hidden;
+  box-shadow: 0 4px 32px 0 rgba(34,197,94,0.10), 0 1.5px 8px 0 rgba(0,0,0,0.04);
+}
+.enhanced-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(34,197,94,0.08) 0%, rgba(250,204,21,0.06) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+.enhanced-card:hover {
+  box-shadow: 0 8px 48px 0 rgba(34,197,94,0.18), 0 3px 16px 0 rgba(0,0,0,0.08);
+  border-color: #22c55e;
+  transform: translateY(-4px) scale(1.015);
+}
+.enhanced-card .card-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Enhance existing card classes for consistency */
+.card, .card-elevated, .card-glow, .stat-card, .feature-card {
+  @apply bg-white/90 backdrop-blur-lg rounded-2xl shadow-xl border border-green-100/60 p-6 transition-all duration-300 relative overflow-hidden;
+}
+.card:hover, .card-elevated:hover, .card-glow:hover, .stat-card:hover, .feature-card:hover {
+  box-shadow: 0 8px 48px 0 rgba(34,197,94,0.14), 0 3px 16px 0 rgba(0,0,0,0.07);
+  border-color: #22c55e;
+  transform: translateY(-2px) scale(1.01);
+}
+
+/* Special class for large Hindi headings to fix matra clipping */
+.hindi-heading {
+  font-family: 'Noto Sans Devanagari', sans-serif !important;
+  line-height: 1.25 !important;
+  padding-top: 0.25em;
+  padding-bottom: 0.25em;
+  font-weight: 700 !important;
+  overflow: visible !important;
+  text-shadow: none !important;
+}
+
+.english-heading {
+  font-family: 'Inter', 'Segoe UI', 'Roboto', sans-serif !important;
+  line-height: 1.18 !important;
+  padding-top: 0.18em;
+  padding-bottom: 0.18em;
+  font-weight: 800 !important;
+  overflow: visible !important;
+  text-shadow: none !important;
+}
+
