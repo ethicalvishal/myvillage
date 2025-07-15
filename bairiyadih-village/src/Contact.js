@@ -44,13 +44,17 @@ function Contact() {
     if (!name.trim() || !email.trim() || !message.trim()) return;
 
     try {
-      await addDoc(collection(db, 'contacts'), {
-        name,
-        email,
-        phone,
-        message,
-        timestamp: serverTimestamp(),
-        language: lang
+      await fetch('https://bairiyadih-backend.onrender.com/api/input', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'contact',
+          name,
+          email,
+          phone,
+          message,
+          language: lang
+        })
       });
 
       setName('');
@@ -58,9 +62,9 @@ function Contact() {
       setPhone('');
       setMessage('');
       setShowForm(false);
-      fetchContacts();
+      alert(lang === 'hi' ? 'संदेश भेज दिया गया!' : 'Message sent!');
     } catch (error) {
-      console.error('Error adding contact:', error);
+      alert(lang === 'hi' ? 'भेजने में त्रुटि' : 'Error sending message');
     }
   };
 

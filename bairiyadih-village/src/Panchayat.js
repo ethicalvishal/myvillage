@@ -20,26 +20,7 @@ function Panchayat() {
     navigate(-1); // Go back to previous page in history
   };
 
-  const panchayatMembers = [
-    {
-      name: i18n.language === 'hi' ? 'जानकारी अपडेट की जा रही है' : 'Information being updated',
-      position: i18n.language === 'hi' ? 'सरपंच' : 'Sarpanch',
-      contact: i18n.language === 'hi' ? 'जानकारी अपडेट की जा रही है' : 'Information being updated',
-      ward: i18n.language === 'hi' ? 'वार्ड नंबर 1' : 'Ward No. 1'
-    },
-    {
-      name: i18n.language === 'hi' ? 'जानकारी अपडेट की जा रही है' : 'Information being updated',
-      position: i18n.language === 'hi' ? 'उप सरपंच' : 'Deputy Sarpanch',
-      contact: i18n.language === 'hi' ? 'जानकारी अपडेट की जा रही है' : 'Information being updated',
-      ward: i18n.language === 'hi' ? 'वार्ड नंबर 2' : 'Ward No. 2'
-    },
-    {
-      name: i18n.language === 'hi' ? 'जानकारी अपडेट की जा रही है' : 'Information being updated',
-      position: i18n.language === 'hi' ? 'पंचायत सदस्य' : 'Panchayat Member',
-      contact: i18n.language === 'hi' ? 'जानकारी अपडेट की जा रही है' : 'Information being updated',
-      ward: i18n.language === 'hi' ? 'वार्ड नंबर 3' : 'Ward No. 3'
-    }
-  ];
+  // Removed unused panchayatMembers array which was causing syntax errors
 
   return (
     <main className="flex flex-col items-center mt-8 px-4 relative">

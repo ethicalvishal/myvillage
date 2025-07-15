@@ -32,6 +32,35 @@ app.get('/api/sarkari-updates', (req, res) => {
   });
 });
 
+app.post('/api/input', (req, res) => {
+  const input = req.body;
+  const filePath = path.join(__dirname, 'inputs.json');
+  let allInputs = [];
+  if (fs.existsSync(filePath)) {
+    try {
+      allInputs = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    } catch {
+      allInputs = [];
+    }
+  }
+  allInputs.push({ ...input, time: new Date().toISOString() });
+  fs.writeFileSync(filePath, JSON.stringify(allInputs, null, 2));
+  res.json({ success: true });
+});
+
+app.get('/api/inputs', (req, res) => {
+  const filePath = path.join(__dirname, 'inputs.json');
+  if (fs.existsSync(filePath)) {
+    try {
+      res.json(JSON.parse(fs.readFileSync(filePath, 'utf8')));
+    } catch {
+      res.json([]);
+    }
+  } else {
+    res.json([]);
+  }
+});
+
 app.get('/', (req, res) => {
   res.send('Bairiyadih Village API is running.');
 });

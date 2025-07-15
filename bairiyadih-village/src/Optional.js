@@ -49,10 +49,15 @@ function Optional() {
     e.preventDefault();
     const entry = form[key];
     if (!entry || !entry.text) return;
-    await addDoc(collection(db, key), {
-      ...entry,
-      date: new Date().toISOString(),
-      lang,
+    await fetch('https://bairiyadih-backend.onrender.com/api/input', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type: key,
+        ...entry,
+        lang,
+        section: 'optional'
+      })
     });
     setForm(f => ({ ...f, [key]: { text: '' } }));
   };
