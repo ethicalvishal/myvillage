@@ -437,10 +437,21 @@ function Videos() {
     signOut(auth);
   }
 
+  const [showLiveForm, setShowLiveForm] = useState(false);
+  const [showUploadForm, setShowUploadForm] = useState(false);
+
+  // 1. Add utility for user avatar (initials or emoji)
+  function getUserAvatar(name) {
+    if (!name) return '👤';
+    const initials = name.split(' ').map(w => w[0]).join('').toUpperCase();
+    if (initials.length === 1) return initials + '👤';
+    return initials.slice(0,2);
+  }
+
   return (
     <main className="flex flex-col items-center mt-8 px-4 relative">
-      {/* Language Toggle */}
-      <div className="flex justify-end w-full max-w-6xl mb-2">
+      {/* Language Toggle - REMOVE THIS BLOCK */}
+      {/* <div className="flex justify-end w-full max-w-6xl mb-2">
         <div className="inline-flex rounded-full shadow border border-blue-300 bg-white overflow-hidden">
           <button
             className={`px-4 py-1 font-semibold transition-all duration-200 ${lang === 'hi' ? 'bg-blue-500 text-white' : 'text-blue-700 hover:bg-blue-100'}`}
@@ -451,7 +462,7 @@ function Videos() {
             onClick={() => setLang('en')}
           >English</button>
         </div>
-      </div>
+      </div> */}
       <DesignerCardBackground variant="default">
         <div className="text-center mb-8">
           <span className="text-6xl mb-2 animate-bounce" role="img" aria-label="videos">📺</span>
@@ -467,10 +478,17 @@ function Videos() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
           {MODULES.map((mod, i) => (
-            <div key={mod.key} className="bg-white/80 rounded-2xl shadow-xl p-6 flex flex-col items-center border-l-8 border-blue-400">
+            <div
+              key={mod.key}
+              className={`bg-white/80 rounded-2xl shadow-xl p-6 flex flex-col items-center border-l-8 cursor-pointer transition-all duration-200 ${active === mod.key ? 'border-blue-700 ring-2 ring-blue-300 scale-105 bg-blue-50' : 'border-blue-400 hover:bg-blue-100 hover:scale-105'}`}
+              onClick={() => setActive(mod.key)}
+              tabIndex={0}
+              role="button"
+              aria-label={lang === 'hi' ? mod.hi : mod.en}
+              onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') setActive(mod.key); }}
+            >
               <span className="text-4xl mb-2">{mod.icon}</span>
               <div className="font-bold text-xl text-blue-900 mb-1">{lang === 'hi' ? mod.hi : mod.en}</div>
-              {/* Add module-specific content here if needed */}
             </div>
           ))}
         </div>
@@ -578,6 +596,52 @@ function Videos() {
         )}
         {active === 'live' && (
           <DesignerCardBackground variant="live" className="w-full max-w-2xl mx-auto mb-4">
+            {/* Admin: Pending Live Session Requests */}
+            {isAdmin && (
+              <DesignerCardBackground variant="live" className="w-full max-w-xl mx-auto mb-6">
+                <h3 className="font-bold text-lg mb-2 flex items-center gap-2 text-pink-700"><span>🛡️</span> {lang === 'hi' ? 'लाइव अनुरोध (एडमिन)' : 'Live Requests (Admin)'}</h3>
+                <AdminLiveRequests />
+              </DesignerCardBackground>
+            )}
+            {/* User Live Session Request Form Toggle */}
+            {!isAdmin && (
+              <DesignerCardBackground variant="live" className="w-full max-w-xl mx-auto mb-6">
+                <button
+                  className="bg-gradient-to-r from-pink-400 to-yellow-400 text-white font-semibold py-2 px-6 rounded-full shadow hover:scale-105 transition-all duration-200 mb-3"
+                  onClick={() => setShowLiveForm(v => !v)}
+                >
+                  {showLiveForm ? (lang === 'hi' ? 'फॉर्म छुपाएं' : 'Hide Form') : (lang === 'hi' ? 'लाइव अनुरोध करें' : 'Request Live Session')}
+                </button>
+                {showLiveForm && (
+                  <form className="flex flex-col gap-2 animate-fade-in" onSubmit={async e => {
+                    e.preventDefault();
+                    if (!window.liveReqName || !window.liveReqTitle || !window.liveReqUrl) return;
+                    try {
+                      await addDoc(collection(db, 'gram_videos_live_requests'), {
+                        name: window.liveReqName,
+                        title: window.liveReqTitle,
+                        desc: window.liveReqDesc || '',
+                        embedUrl: window.liveReqUrl,
+                        status: 'pending',
+                        requestedAt: serverTimestamp(),
+                      });
+                      window.liveReqName = window.liveReqTitle = window.liveReqDesc = window.liveReqUrl = '';
+                      document.getElementById('liveReqForm').reset();
+                      alert(lang === 'hi' ? 'अनुरोध भेजा गया! एडमिन अप्रूवल के बाद लाइव होगा।' : 'Request sent! Will go live after admin approval.');
+                      setShowLiveForm(false);
+                    } catch {
+                      alert(lang === 'hi' ? 'कुछ गलत हो गया।' : 'Something went wrong.');
+                    }
+                  }} id="liveReqForm">
+                    <input type="text" required placeholder={lang === 'hi' ? 'आपका नाम' : 'Your Name'} className="border rounded px-3 py-2 text-black" onChange={e => window.liveReqName = e.target.value} />
+                    <input type="text" required placeholder={lang === 'hi' ? 'शीर्षक' : 'Title'} className="border rounded px-3 py-2 text-black" onChange={e => window.liveReqTitle = e.target.value} />
+                    <input type="text" placeholder={lang === 'hi' ? 'विवरण' : 'Description'} className="border rounded px-3 py-2 text-black" onChange={e => window.liveReqDesc = e.target.value} />
+                    <input type="text" required placeholder="YouTube/Facebook/Zoom Embed URL" className="border rounded px-3 py-2 text-black" onChange={e => window.liveReqUrl = e.target.value} />
+                    <button type="submit" className="bg-gradient-to-r from-pink-400 to-yellow-400 text-white font-semibold py-2 px-6 rounded-full shadow hover:scale-105 transition-all duration-200">{lang === 'hi' ? 'अनुरोध भेजें' : 'Send Request'}</button>
+                  </form>
+                )}
+              </DesignerCardBackground>
+            )}
             {isAdmin && (
               <DesignerCardBackground variant="live" className="w-full max-w-2xl mx-auto mb-4">
                 <h3 className="font-bold text-lg mb-2 flex items-center gap-2 text-pink-700"><span>🛡️</span> {lang === 'hi' ? 'एडमिन: लाइव सेटिंग' : 'Admin: Live Settings'}</h3>
@@ -620,6 +684,12 @@ function Videos() {
                   allowFullScreen
                   className="w-full aspect-video min-h-[220px] bg-black"
                 ></iframe>
+                {/* Show requestedBy if present */}
+                {liveInfo.requestedBy && (
+                  <div className="absolute bottom-3 left-3 bg-white/80 text-pink-700 text-xs font-semibold px-3 py-1 rounded-full shadow">
+                    {lang === 'hi' ? 'अनुरोधकर्ता: ' : 'Requested by: '}{liveInfo.requestedBy}
+                  </div>
+                )}
               </DesignerCardBackground>
             ) : (
               <DesignerCardBackground variant="live" className="w-full aspect-video min-h-[220px] flex items-center justify-center bg-gray-100 rounded-2xl border border-gray-200 shadow">
@@ -650,79 +720,110 @@ function Videos() {
         )}
         {active === 'upload' && (
           <DesignerCardBackground variant="upload" className="w-full max-w-lg">
-            <form
-              className="bg-transparent p-0 flex flex-col gap-4"
-              onSubmit={handleUpload}
+            <button
+              className="bg-gradient-to-r from-green-500 to-blue-500 text-white font-semibold py-2 px-6 rounded-full shadow-lg hover:scale-105 hover:from-green-600 hover:to-blue-600 transition-all duration-200 mb-3"
+              onClick={() => setShowUploadForm(v => !v)}
             >
-              <div className="flex flex-col gap-1">
-                <label className="font-semibold mb-1">{lang === 'hi' ? 'शीर्षक' : 'Title'} *</label>
-                <input
-                  type="text"
-                  required
-                  value={uploadForm.title}
-                  onChange={e => setUploadForm(f => ({ ...f, title: e.target.value }))}
-                  className="border rounded px-3 py-2 text-black"
-                  placeholder={lang === 'hi' ? 'वीडियो का शीर्षक' : 'Video title'}
-                />
-              </div>
-              <div className="flex flex-col gap-1">
-                <label className="font-semibold mb-1">{lang === 'hi' ? 'विवरण' : 'Description'}</label>
-                <textarea
-                  value={uploadForm.desc}
-                  onChange={e => setUploadForm(f => ({ ...f, desc: e.target.value }))}
-                  className="border rounded px-3 py-2 text-black"
-                  rows={2}
-                  placeholder={lang === 'hi' ? 'वीडियो का विवरण' : 'Video description'}
-                />
-              </div>
-              <div className="flex flex-col gap-1">
-                <label className="font-semibold mb-1">{lang === 'hi' ? 'श्रेणी' : 'Category'} *</label>
-                <select
-                  value={uploadForm.category}
-                  onChange={e => setUploadForm(f => ({ ...f, category: e.target.value }))}
-                  className="border rounded px-3 py-2 text-black"
-                  required
-                >
-                  {CATEGORIES.filter(c => c.key !== 'all').map(cat => (
-                    <option key={cat.key} value={cat.key}>{cat.emoji} {lang === 'hi' ? cat.hi : cat.en}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="flex flex-col gap-1">
-                <label className="font-semibold mb-1">{lang === 'hi' ? 'वीडियो फाइल (MP4/MOV)' : 'Video File (MP4/MOV)'} *</label>
-                <input
-                  type="file"
-                  accept="video/mp4,video/quicktime"
-                  required
-                  onChange={e => setUploadForm(f => ({ ...f, file: e.target.files[0] }))}
-                  className="border rounded px-3 py-2 text-black bg-white"
-                />
-              </div>
-              <div className="flex flex-col gap-1">
-                <label className="font-semibold mb-1">{lang === 'hi' ? 'थंबनेल (वैकल्पिक)' : 'Thumbnail (optional)'}</label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={e => setUploadForm(f => ({ ...f, thumbnail: e.target.files[0] }))}
-                  className="border rounded px-3 py-2 text-black bg-white"
-                />
-              </div>
-              <button
-                type="submit"
-                className="bg-gradient-to-r from-green-400 to-pink-400 text-white font-semibold py-2 px-6 rounded-full shadow hover:scale-105 transition-all duration-200"
-                disabled={uploadStatus === 'uploading'}
+              {showUploadForm ? (lang === 'hi' ? 'फॉर्म छुपाएं' : 'Hide Form') : (lang === 'hi' ? 'वीडियो अपलोड करें' : 'Upload Video')}
+            </button>
+            {showUploadForm && (
+              <form
+                className="bg-white/95 rounded-2xl shadow-2xl p-6 flex flex-col gap-5 border border-blue-100 animate-fade-in"
+                onSubmit={handleUpload}
               >
-                {uploadStatus === 'uploading'
-                  ? (lang === 'hi' ? 'अपलोड हो रहा है...' : 'Uploading...')
-                  : (lang === 'hi' ? 'अपलोड करें' : 'Upload')}
-              </button>
-              {uploadStatus === 'success' && (
-                <div className="text-green-700 font-semibold mt-2">{lang === 'hi' ? 'वीडियो सबमिट हुआ! एडमिन अप्रूवल के बाद दिखेगा।' : 'Video submitted! Will appear after admin approval.'}</div>
-              )}
-              {uploadStatus === 'error' && (
-                <div className="text-red-600 font-semibold mt-2">{uploadError}</div>
-              )}
-            </form>
+                <div className="flex flex-col gap-1">
+                  <label className="font-semibold mb-1 text-black flex items-center gap-2">
+                    <span role="img" aria-label="title">📝</span> {lang === 'hi' ? 'शीर्षक' : 'Title'} *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={uploadForm.title}
+                    onChange={e => setUploadForm(f => ({ ...f, title: e.target.value }))}
+                    className="border rounded-lg px-3 py-2 text-black placeholder-black focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all duration-200 outline-none"
+                    placeholder={lang === 'hi' ? 'वीडियो का शीर्षक' : 'Video title'}
+                  />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <label className="font-semibold mb-1 text-black flex items-center gap-2">
+                    <span role="img" aria-label="desc">🗒️</span> {lang === 'hi' ? 'विवरण' : 'Description'}
+                  </label>
+                  <textarea
+                    value={uploadForm.desc}
+                    onChange={e => setUploadForm(f => ({ ...f, desc: e.target.value }))}
+                    className="border rounded-lg px-3 py-2 text-black placeholder-black focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all duration-200 outline-none"
+                    rows={2}
+                    placeholder={lang === 'hi' ? 'वीडियो का विवरण' : 'Video description'}
+                  />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <label className="font-semibold mb-1 text-black flex items-center gap-2">
+                    <span role="img" aria-label="category">🏷️</span> {lang === 'hi' ? 'श्रेणी' : 'Category'} *
+                  </label>
+                  <select
+                    value={uploadForm.category}
+                    onChange={e => setUploadForm(f => ({ ...f, category: e.target.value }))}
+                    className="border rounded-lg px-3 py-2 text-black focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all duration-200 outline-none"
+                    required
+                  >
+                    {CATEGORIES.filter(c => c.key !== 'all').map(cat => (
+                      <option key={cat.key} value={cat.key}>{cat.emoji} {lang === 'hi' ? cat.hi : cat.en}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <label className="font-semibold mb-1 text-black flex items-center gap-2">
+                    <span role="img" aria-label="video">🎥</span> {lang === 'hi' ? 'वीडियो फाइल (MP4/MOV)' : 'Video File (MP4/MOV)'} *
+                  </label>
+                  <input
+                    type="file"
+                    accept="video/mp4,video/quicktime"
+                    required
+                    onChange={e => setUploadForm(f => ({ ...f, file: e.target.files[0] }))}
+                    className="border rounded-lg px-3 py-2 text-black bg-white focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all duration-200 outline-none"
+                  />
+                  {uploadForm.file && (
+                    <span className="text-xs text-green-700 mt-1">{uploadForm.file.name}</span>
+                  )}
+                </div>
+                <div className="flex flex-col gap-1">
+                  <label className="font-semibold mb-1 text-black flex items-center gap-2">
+                    <span role="img" aria-label="thumbnail">🖼️</span> {lang === 'hi' ? 'थंबनेल (वैकल्पिक)' : 'Thumbnail (optional)'}
+                  </label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={e => setUploadForm(f => ({ ...f, thumbnail: e.target.files[0] }))}
+                    className="border rounded-lg px-3 py-2 text-black bg-white focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all duration-200 outline-none"
+                  />
+                  {uploadForm.thumbnail && (
+                    <span className="text-xs text-green-700 mt-1">{uploadForm.thumbnail.name}</span>
+                  )}
+                </div>
+                <button
+                  type="submit"
+                  className="bg-gradient-to-r from-green-500 to-blue-500 text-white font-semibold py-2 px-6 rounded-full shadow-lg hover:scale-105 hover:from-green-600 hover:to-blue-600 transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+                  disabled={uploadStatus === 'uploading'}
+                >
+                  {uploadStatus === 'uploading' && (
+                    <span className="spinner-border animate-spin inline-block w-4 h-4 border-2 border-white border-t-blue-500 rounded-full"></span>
+                  )}
+                  {uploadStatus === 'uploading'
+                    ? (lang === 'hi' ? 'अपलोड हो रहा है...' : 'Uploading...')
+                    : (lang === 'hi' ? 'अपलोड करें' : 'Upload')}
+                </button>
+                {uploadStatus === 'success' && (
+                  <div className="bg-green-100 border border-green-300 text-green-800 font-semibold rounded-lg px-4 py-2 mt-2 text-center">
+                    {lang === 'hi' ? 'वीडियो सबमिट हुआ! एडमिन अप्रूवल के बाद दिखेगा।' : 'Video submitted! Will appear after admin approval.'}
+                  </div>
+                )}
+                {uploadStatus === 'error' && (
+                  <div className="bg-red-100 border border-red-300 text-red-700 font-semibold rounded-lg px-4 py-2 mt-2 text-center">
+                    {uploadError}
+                  </div>
+                )}
+              </form>
+            )}
           </DesignerCardBackground>
         )}
         {active === 'upload' && (
@@ -793,4 +894,74 @@ function Videos() {
   );
 }
 
-export default Videos; 
+export default Videos;
+
+function AdminLiveRequests() {
+  const [requests, setRequests] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
+  const [msg, setMsg] = React.useState('');
+  React.useEffect(() => {
+    setLoading(true);
+    import('firebase/firestore').then(({ collection, getDocs, query, where, orderBy }) => {
+      const q = query(collection(db, 'gram_videos_live_requests'), where('status', '==', 'pending'), orderBy('requestedAt', 'desc'));
+      getDocs(q).then(snap => {
+        setRequests(snap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+        setLoading(false);
+      });
+    });
+  }, [msg]);
+
+  async function handleApprove(req) {
+    setMsg('');
+    try {
+      // Set as current live session
+      await import('firebase/firestore').then(({ doc, setDoc, deleteDoc }) =>
+        Promise.all([
+          setDoc(doc(db, 'gram_videos_live', 'main'), {
+            isLive: true,
+            embedUrl: req.embedUrl,
+            title: req.title,
+            desc: req.desc,
+            requestedBy: req.name || '',
+            scheduled: [],
+          }),
+          deleteDoc(doc(db, 'gram_videos_live_requests', req.id))
+        ])
+      );
+      setMsg('Approved!');
+    } catch {
+      setMsg('Error approving.');
+    }
+  }
+  async function handleReject(req) {
+    setMsg('');
+    try {
+      await import('firebase/firestore').then(({ doc, deleteDoc }) =>
+        deleteDoc(doc(db, 'gram_videos_live_requests', req.id))
+      );
+      setMsg('Rejected!');
+    } catch {
+      setMsg('Error rejecting.');
+    }
+  }
+
+  if (loading) return <div className="text-center text-gray-400 py-4">{msg || (window.navigator.language.startsWith('hi') ? 'लोड हो रहा है...' : 'Loading...')}</div>;
+  if (requests.length === 0) return <div className="text-center text-gray-400 py-4">{msg || (window.navigator.language.startsWith('hi') ? 'कोई अनुरोध नहीं।' : 'No requests.')}</div>;
+  return (
+    <div className="space-y-4">
+      {requests.map(req => (
+        <div key={req.id} className="bg-white rounded-xl shadow p-4 flex flex-col gap-2 border-l-4 border-pink-400">
+          <div className="font-bold text-pink-700">{req.title}</div>
+          <div className="text-gray-700 text-sm">{req.desc}</div>
+          <div className="text-xs text-gray-500">{window.navigator.language.startsWith('hi') ? 'नाम' : 'Name'}: <span className="font-semibold">{req.name}</span></div>
+          <div className="text-xs text-gray-500 break-all">URL: <span className="font-mono">{req.embedUrl}</span></div>
+          <div className="flex gap-2 mt-2">
+            <button onClick={() => handleApprove(req)} className="bg-green-500 text-white px-3 py-1 rounded-full font-semibold shadow hover:bg-green-600 transition-all duration-200">{window.navigator.language.startsWith('hi') ? 'स्वीकृत करें' : 'Approve'}</button>
+            <button onClick={() => handleReject(req)} className="bg-red-500 text-white px-3 py-1 rounded-full font-semibold shadow hover:bg-red-600 transition-all duration-200">{window.navigator.language.startsWith('hi') ? 'अस्वीकृत' : 'Reject'}</button>
+          </div>
+        </div>
+      ))}
+      {msg && <div className="text-center text-green-700 font-semibold mt-2">{msg}</div>}
+    </div>
+  );
+} 
