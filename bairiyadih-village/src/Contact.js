@@ -49,11 +49,11 @@ function Contact() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           type: 'contact',
-          name,
-          email,
-          phone,
-          message,
-          language: lang
+        name,
+        email,
+        phone,
+        message,
+        language: lang
         })
       });
 

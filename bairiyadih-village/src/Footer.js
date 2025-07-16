@@ -70,7 +70,7 @@ const Footer = () => {
               <stop offset="1" stopColor="#6366f1" />
             </linearGradient>
           </defs>
-        </svg>
+          </svg>
       </div>
       {/* Firefly/Star Particle Effect */}
       <div className="pointer-events-none absolute inset-0 z-0">
@@ -110,7 +110,7 @@ const Footer = () => {
                 <div>
                   <h2 className="text-2xl font-bold font-display bg-gradient-to-r from-green-400 via-yellow-400 to-indigo-400 bg-clip-text text-transparent animate-gradient-x">
                     {t('villageName')}
-                  </h2>
+            </h2>
                   <p className="text-neutral-400 text-sm">
                     {t('tagline')}
                   </p>

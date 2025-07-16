@@ -287,7 +287,7 @@ function Education() {
         {/* Educational Institutions Section */}
         <h3 className={`text-2xl font-bold mb-6 gradient-text ${lang === 'hi' ? 'hindi-heading' : ''}`}>
           {lang === 'hi' ? 'शैक्षिक संस्थान' : 'Educational Institutions'}
-        </h3>
+              </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
           {schools.map((school, index) => (
             <div key={index} className="bg-white rounded-lg p-4 shadow-sm enhanced-card hover:scale-105 hover:shadow-lg transition-all duration-300">
@@ -317,12 +317,12 @@ function Education() {
               )}
             </div>
           ))}
-        </div>
+          </div>
 
         {/* Teachers Section */}
         <h3 className={`text-2xl font-bold mb-6 gradient-text ${lang === 'hi' ? 'hindi-heading' : ''}`}>
           {lang === 'hi' ? 'शिक्षक' : 'Teachers'}
-        </h3>
+              </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
           {teachers.map((teacher, index) => (
             <div key={index} className="bg-white rounded-lg p-6 shadow-sm enhanced-card hover:scale-105 hover:shadow-lg transition-all duration-300">
@@ -342,7 +342,7 @@ function Education() {
                     ? (lang === 'hi' ? 'कम देखें' : 'Show Less') 
                     : (lang === 'hi' ? 'विस्तार से देखें' : 'View Details')}
                 </button>
-              </div>
+                    </div>
               {expandedSection === `teacher-${index}` && (
                 <div className="mt-4 p-4 bg-green-50 rounded-lg border border-green-200">
                   <div className="space-y-2 text-sm text-black">
@@ -350,9 +350,9 @@ function Education() {
                   </div>
                 </div>
               )}
-            </div>
+                    </div>
           ))}
-        </div>
+                  </div>
 
         {/* Anganwadi Centers Section */}
         <h3 className={`text-2xl font-bold mb-6 gradient-text ${lang === 'hi' ? 'hindi-heading' : ''}`}>
@@ -385,9 +385,9 @@ function Education() {
                   </div>
                 </div>
               )}
-            </div>
+                    </div>
           ))}
-        </div>
+                  </div>
 
         {/* Government Schemes Section */}
         <h3 className={`text-2xl font-bold mb-6 gradient-text ${lang === 'hi' ? 'hindi-heading' : ''}`}>
@@ -406,11 +406,11 @@ function Education() {
                 <p className="text-xs text-gray-600">
                   {scheme[lang === 'hi' ? 'descHi' : 'descEn']}
                 </p>
+                    </div>
+                  </div>
+          ))}
               </div>
             </div>
-          ))}
-        </div>
-      </div>
 
       <DesignerCardBackground variant="default">
         <div className="text-center mb-8">
@@ -424,7 +424,7 @@ function Education() {
               ? 'हर वार्ड के लिए शिक्षा से जुड़ी जानकारी।'
               : 'Education details for each ward.'}
           </p>
-        </div>
+                    </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[...Array(22)].slice(0, showAllWards ? 22 : 3).map((_, idx) => {
             const wardNum = idx + 1;
@@ -435,7 +435,7 @@ function Education() {
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full flex items-center justify-center">
                     <span className="text-xl font-bold text-white">{wardNum}</span>
                   </div>
-                  <div>
+                    <div>
                     <h4 className={`font-semibold text-gray-800 ${lang === 'hi' ? 'hindi-text' : ''}`}>
                       {lang === 'hi' ? `वार्ड नंबर ${wardNum}` : `Ward No. ${wardNum}`}
                     </h4>
@@ -457,7 +457,7 @@ function Education() {
               </div>
             );
           })}
-        </div>
+            </div>
         <div className="flex justify-center mt-6">
           <button
             className="px-6 py-2 bg-gradient-to-r from-blue-500 to-green-400 text-white font-semibold rounded-full shadow hover:scale-105 transition-all duration-200"

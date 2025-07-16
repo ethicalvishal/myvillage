@@ -916,8 +916,8 @@ function NewsManager({ news, onRefresh, lang, setShowForm, showForm, formData, s
           <div className="flex items-center gap-3 mb-4">
             <span className="text-2xl">��</span>
             <h3 className="text-lg font-semibold text-gray-800">
-              {lang === 'hi' ? 'नया समाचार जोड़ें' : 'Add News'}
-            </h3>
+            {lang === 'hi' ? 'नया समाचार जोड़ें' : 'Add News'}
+          </h3>
           </div>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
@@ -1087,8 +1087,8 @@ function GalleryManager({ gallery, onRefresh, lang, setShowForm, showForm, formD
           <div className="flex items-center gap-3 mb-4">
             <span className="text-2xl">🖼️</span>
             <h3 className="text-lg font-semibold text-gray-800">
-              {lang === 'hi' ? 'फोटो अपलोड करें' : 'Upload Photo'}
-            </h3>
+            {lang === 'hi' ? 'फोटो अपलोड करें' : 'Upload Photo'}
+          </h3>
           </div>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
@@ -1222,7 +1222,7 @@ function SchemesManager({ schemes, onRefresh, lang, setShowForm, showForm, formD
           <div className="flex items-center gap-3 mb-4">
             <span className="text-2xl">📚</span>
             <h3 className="text-lg font-semibold text-gray-800">
-              {lang === 'hi' ? 'योजना जोड़ें' : 'Add Scheme'}
+          {lang === 'hi' ? 'योजना जोड़ें' : 'Add Scheme'}
             </h3>
           </div>
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -1269,9 +1269,9 @@ function SchemesManager({ schemes, onRefresh, lang, setShowForm, showForm, formD
               className="w-full bg-gradient-to-r from-purple-500 to-pink-400 text-white py-3 px-6 rounded-lg shadow-md hover:from-purple-600 hover:to-pink-500 font-bold text-lg tracking-wide transition-all duration-200"
             >
               {lang === 'hi' ? 'जोड़ें' : 'Add'}
-            </button>
+        </button>
           </form>
-        </div>
+      </div>
       )}
       <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
         <h3 className="text-lg font-semibold text-gray-800 mb-4">
@@ -1350,7 +1350,7 @@ function EventsManager({ events, onRefresh, lang, setShowForm, showForm, formDat
           <div className="flex items-center gap-3 mb-4">
             <span className="text-2xl">📅</span>
             <h3 className="text-lg font-semibold text-gray-800">
-              {lang === 'hi' ? 'कार्यक्रम जोड़ें' : 'Add Event'}
+          {lang === 'hi' ? 'कार्यक्रम जोड़ें' : 'Add Event'}
             </h3>
           </div>
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -1397,9 +1397,9 @@ function EventsManager({ events, onRefresh, lang, setShowForm, showForm, formDat
               className="w-full bg-gradient-to-r from-orange-500 to-yellow-400 text-white py-3 px-6 rounded-lg shadow-md hover:from-orange-600 hover:to-yellow-500 font-bold text-lg tracking-wide transition-all duration-200"
             >
               {lang === 'hi' ? 'जोड़ें' : 'Add'}
-            </button>
+        </button>
           </form>
-        </div>
+      </div>
       )}
       <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
         <h3 className="text-lg font-semibold text-gray-800 mb-4">
@@ -1490,7 +1490,7 @@ function ProfilesManager({ profiles, onRefresh, lang, setShowForm, showForm, for
           <div className="flex items-center gap-3 mb-4">
             <span className="text-2xl">👥</span>
             <h3 className="text-lg font-semibold text-gray-800">
-              {lang === 'hi' ? 'प्रोफाइल जोड़ें' : 'Add Profile'}
+          {lang === 'hi' ? 'प्रोफाइल जोड़ें' : 'Add Profile'}
             </h3>
           </div>
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -1549,9 +1549,9 @@ function ProfilesManager({ profiles, onRefresh, lang, setShowForm, showForm, for
               className="w-full bg-gradient-to-r from-indigo-500 to-purple-400 text-white py-3 px-6 rounded-lg shadow-md hover:from-indigo-600 hover:to-purple-500 font-bold text-lg tracking-wide transition-all duration-200"
             >
               {uploading ? (lang === 'hi' ? 'अपलोड हो रहा है...' : 'Uploading...') : (lang === 'hi' ? 'जोड़ें' : 'Add')}
-            </button>
+        </button>
           </form>
-        </div>
+      </div>
       )}
       <div className="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
         <h3 className="text-lg font-semibold text-gray-800 mb-4">

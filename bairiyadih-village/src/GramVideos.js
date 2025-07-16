@@ -727,102 +727,102 @@ function Videos() {
               {showUploadForm ? (lang === 'hi' ? 'फॉर्म छुपाएं' : 'Hide Form') : (lang === 'hi' ? 'वीडियो अपलोड करें' : 'Upload Video')}
             </button>
             {showUploadForm && (
-              <form
+            <form
                 className="bg-white/95 rounded-2xl shadow-2xl p-6 flex flex-col gap-5 border border-blue-100 animate-fade-in"
-                onSubmit={handleUpload}
-              >
-                <div className="flex flex-col gap-1">
+              onSubmit={handleUpload}
+            >
+              <div className="flex flex-col gap-1">
                   <label className="font-semibold mb-1 text-black flex items-center gap-2">
                     <span role="img" aria-label="title">📝</span> {lang === 'hi' ? 'शीर्षक' : 'Title'} *
                   </label>
-                  <input
-                    type="text"
-                    required
-                    value={uploadForm.title}
-                    onChange={e => setUploadForm(f => ({ ...f, title: e.target.value }))}
+                <input
+                  type="text"
+                  required
+                  value={uploadForm.title}
+                  onChange={e => setUploadForm(f => ({ ...f, title: e.target.value }))}
                     className="border rounded-lg px-3 py-2 text-black placeholder-black focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all duration-200 outline-none"
-                    placeholder={lang === 'hi' ? 'वीडियो का शीर्षक' : 'Video title'}
-                  />
-                </div>
-                <div className="flex flex-col gap-1">
+                  placeholder={lang === 'hi' ? 'वीडियो का शीर्षक' : 'Video title'}
+                />
+              </div>
+              <div className="flex flex-col gap-1">
                   <label className="font-semibold mb-1 text-black flex items-center gap-2">
                     <span role="img" aria-label="desc">🗒️</span> {lang === 'hi' ? 'विवरण' : 'Description'}
                   </label>
-                  <textarea
-                    value={uploadForm.desc}
-                    onChange={e => setUploadForm(f => ({ ...f, desc: e.target.value }))}
+                <textarea
+                  value={uploadForm.desc}
+                  onChange={e => setUploadForm(f => ({ ...f, desc: e.target.value }))}
                     className="border rounded-lg px-3 py-2 text-black placeholder-black focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all duration-200 outline-none"
-                    rows={2}
-                    placeholder={lang === 'hi' ? 'वीडियो का विवरण' : 'Video description'}
-                  />
-                </div>
-                <div className="flex flex-col gap-1">
+                  rows={2}
+                  placeholder={lang === 'hi' ? 'वीडियो का विवरण' : 'Video description'}
+                />
+              </div>
+              <div className="flex flex-col gap-1">
                   <label className="font-semibold mb-1 text-black flex items-center gap-2">
                     <span role="img" aria-label="category">🏷️</span> {lang === 'hi' ? 'श्रेणी' : 'Category'} *
                   </label>
-                  <select
-                    value={uploadForm.category}
-                    onChange={e => setUploadForm(f => ({ ...f, category: e.target.value }))}
+                <select
+                  value={uploadForm.category}
+                  onChange={e => setUploadForm(f => ({ ...f, category: e.target.value }))}
                     className="border rounded-lg px-3 py-2 text-black focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all duration-200 outline-none"
-                    required
-                  >
-                    {CATEGORIES.filter(c => c.key !== 'all').map(cat => (
-                      <option key={cat.key} value={cat.key}>{cat.emoji} {lang === 'hi' ? cat.hi : cat.en}</option>
-                    ))}
-                  </select>
-                </div>
-                <div className="flex flex-col gap-1">
+                  required
+                >
+                  {CATEGORIES.filter(c => c.key !== 'all').map(cat => (
+                    <option key={cat.key} value={cat.key}>{cat.emoji} {lang === 'hi' ? cat.hi : cat.en}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="flex flex-col gap-1">
                   <label className="font-semibold mb-1 text-black flex items-center gap-2">
                     <span role="img" aria-label="video">🎥</span> {lang === 'hi' ? 'वीडियो फाइल (MP4/MOV)' : 'Video File (MP4/MOV)'} *
                   </label>
-                  <input
-                    type="file"
-                    accept="video/mp4,video/quicktime"
-                    required
-                    onChange={e => setUploadForm(f => ({ ...f, file: e.target.files[0] }))}
+                <input
+                  type="file"
+                  accept="video/mp4,video/quicktime"
+                  required
+                  onChange={e => setUploadForm(f => ({ ...f, file: e.target.files[0] }))}
                     className="border rounded-lg px-3 py-2 text-black bg-white focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all duration-200 outline-none"
-                  />
+                />
                   {uploadForm.file && (
                     <span className="text-xs text-green-700 mt-1">{uploadForm.file.name}</span>
                   )}
-                </div>
-                <div className="flex flex-col gap-1">
+              </div>
+              <div className="flex flex-col gap-1">
                   <label className="font-semibold mb-1 text-black flex items-center gap-2">
                     <span role="img" aria-label="thumbnail">🖼️</span> {lang === 'hi' ? 'थंबनेल (वैकल्पिक)' : 'Thumbnail (optional)'}
                   </label>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={e => setUploadForm(f => ({ ...f, thumbnail: e.target.files[0] }))}
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={e => setUploadForm(f => ({ ...f, thumbnail: e.target.files[0] }))}
                     className="border rounded-lg px-3 py-2 text-black bg-white focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all duration-200 outline-none"
-                  />
+                />
                   {uploadForm.thumbnail && (
                     <span className="text-xs text-green-700 mt-1">{uploadForm.thumbnail.name}</span>
                   )}
-                </div>
-                <button
-                  type="submit"
+              </div>
+              <button
+                type="submit"
                   className="bg-gradient-to-r from-green-500 to-blue-500 text-white font-semibold py-2 px-6 rounded-full shadow-lg hover:scale-105 hover:from-green-600 hover:to-blue-600 transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
-                  disabled={uploadStatus === 'uploading'}
-                >
+                disabled={uploadStatus === 'uploading'}
+              >
                   {uploadStatus === 'uploading' && (
                     <span className="spinner-border animate-spin inline-block w-4 h-4 border-2 border-white border-t-blue-500 rounded-full"></span>
                   )}
-                  {uploadStatus === 'uploading'
-                    ? (lang === 'hi' ? 'अपलोड हो रहा है...' : 'Uploading...')
-                    : (lang === 'hi' ? 'अपलोड करें' : 'Upload')}
-                </button>
-                {uploadStatus === 'success' && (
+                {uploadStatus === 'uploading'
+                  ? (lang === 'hi' ? 'अपलोड हो रहा है...' : 'Uploading...')
+                  : (lang === 'hi' ? 'अपलोड करें' : 'Upload')}
+              </button>
+              {uploadStatus === 'success' && (
                   <div className="bg-green-100 border border-green-300 text-green-800 font-semibold rounded-lg px-4 py-2 mt-2 text-center">
                     {lang === 'hi' ? 'वीडियो सबमिट हुआ! एडमिन अप्रूवल के बाद दिखेगा।' : 'Video submitted! Will appear after admin approval.'}
                   </div>
-                )}
-                {uploadStatus === 'error' && (
+              )}
+              {uploadStatus === 'error' && (
                   <div className="bg-red-100 border border-red-300 text-red-700 font-semibold rounded-lg px-4 py-2 mt-2 text-center">
                     {uploadError}
                   </div>
-                )}
-              </form>
+              )}
+            </form>
             )}
           </DesignerCardBackground>
         )}
@@ -894,7 +894,7 @@ function Videos() {
   );
 }
 
-export default Videos;
+export default Videos; 
 
 function AdminLiveRequests() {
   const [requests, setRequests] = React.useState([]);

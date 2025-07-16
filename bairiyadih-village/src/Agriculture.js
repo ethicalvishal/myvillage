@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import DesignerCardBackground from './DesignerCardBackground';
@@ -7,6 +7,7 @@ function Agriculture() {
   const { i18n } = useTranslation();
   const lang = i18n.language || 'hi';
   const navigate = useNavigate();
+  const [showAllWards, setShowAllWards] = useState(false);
 
   const handleGoBack = () => {
     navigate(-1); // Go back to previous page in history
@@ -369,7 +370,7 @@ function Agriculture() {
             {i18n.language === 'hi' ? 'कृषि (वार्ड अनुसार)' : 'Agriculture (Ward-wise)'}
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[...Array(22)].map((_, idx) => {
+            {[...Array(22)].slice(0, showAllWards ? 22 : 3).map((_, idx) => {
               const wardNum = idx + 1;
               let data = null;
               
@@ -436,6 +437,16 @@ function Agriculture() {
                 </div>
               );
             })}
+          </div>
+          <div className="flex justify-center mt-6">
+            <button
+              className="px-6 py-2 bg-gradient-to-r from-green-500 to-yellow-400 text-white font-semibold rounded-full shadow hover:scale-105 transition-all duration-200"
+              onClick={() => setShowAllWards(v => !v)}
+            >
+              {showAllWards
+                ? (lang === 'hi' ? 'कम दिखाएं' : 'Show Less')
+                : (lang === 'hi' ? 'सभी वार्ड देखें' : 'See All Wards')}
+            </button>
         </div>
         </DesignerCardBackground>
       </div>

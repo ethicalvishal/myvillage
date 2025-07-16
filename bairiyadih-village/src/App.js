@@ -59,8 +59,8 @@ function ModernHeader({ lang, handleLangChange }) {
           <ellipse cx="1200" cy="30" rx="60" ry="20" fill="#ffe066" /> {/* Sun */}
           <ellipse cx="200" cy="110" rx="180" ry="20" fill="#b6e2a1" /> {/* Field */}
           <ellipse cx="800" cy="100" rx="300" ry="30" fill="#aee1f9" /> {/* Sky */}
-        </svg>
-      </div>
+      </svg>
+    </div>
       <div className="relative max-w-7xl mx-auto flex items-center justify-between h-20 px-2 sm:px-6 lg:px-8">
         {/* Left: Logo and Village Name */}
         <div className="flex items-center space-x-3 flex-shrink-0">
@@ -207,22 +207,23 @@ function App() {
         
         {/* Main Content with top padding for fixed header */}
         <main className="pt-20 lg:pt-24">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/people" element={<People />} />
-            <Route path="/education" element={<Education />} />
-            <Route path="/health" element={<Health />} />
-            <Route path="/agriculture" element={<Agriculture />} />
-            <Route path="/panchayat" element={<Panchayat />} />
-            <Route path="/transport" element={<Transport />} />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/bairiyadih-village" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/people" element={<People />} />
+          <Route path="/education" element={<Education />} />
+          <Route path="/health" element={<Health />} />
+          <Route path="/agriculture" element={<Agriculture />} />
+          <Route path="/panchayat" element={<Panchayat />} />
+          <Route path="/transport" element={<Transport />} />
             <Route path="/transport-dashboard" element={<TransportDashboard />} />
             <Route path="/transport-admin" element={<TransportAdminPanel />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/news" element={<News />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/optional" element={<Optional />} />
-            <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/news" element={<News />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/optional" element={<Optional />} />
+          <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/ration-card-status" element={<RationCardStatus />} />
             <Route path="/mandi-bhav" element={<MandiBhav />} />
             <Route path="/rozgar-kendra" element={<RozgarKendra />} />
@@ -237,7 +238,7 @@ function App() {
             <Route path="/premium-pdfs" element={<PremiumPDFSection />} />
             <Route path="/job-board" element={<JobBoard />} />
             <Route path="/gram-videos" element={<GramVideos />} />
-          </Routes>
+        </Routes>
         </main>
         
         <Footer />

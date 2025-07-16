@@ -269,12 +269,12 @@ function Home() {
             <div className="flex items-center gap-2 text-lg text-neutral-800">
               <span className="text-2xl">📍</span>
               {i18n.language === 'hi' ? 'थाना - हरसिद्धि, बिहार, भारत' : 'Thana - Harsidhi, Bihar, India'}
-            </div>
+          </div>
             <div className="hidden md:block h-6 w-px bg-gradient-to-b from-green-400 to-orange-400 mx-2" />
             <div className="flex items-center gap-2 text-lg text-neutral-800">
               <span className="text-2xl">🏢</span>
               {i18n.language === 'hi' ? 'जिला: पूर्वी चंपारण, पिनकोड: 845435' : 'District: East Champaran, Pincode: 845435'}
-            </div>
+          </div>
           </div>
           <div className="flex flex-wrap gap-4 justify-center mt-2">
             <button
@@ -302,7 +302,7 @@ function Home() {
       <section className="max-w-5xl mx-auto mb-12 px-4">
         <h2 className={`text-2xl lg:text-3xl font-bold text-center mb-6 gradient-text ${i18n.language === 'hi' ? 'hindi-heading' : ''}`}>
           {i18n.language === 'hi' ? 'गाँव सांख्यिकी' : 'Village Statistics'}
-            </h2>
+          </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {stats.map((stat, idx) => (
             <div
@@ -378,7 +378,7 @@ function Home() {
                 </div>
               )
             ))}
-          </div>
+            </div>
 
           {/* Feature Details Modal */}
           {selectedFeature && (
@@ -418,7 +418,7 @@ function Home() {
       <section className="max-w-5xl mx-auto mt-12 mb-16 px-4">
         <h2 className={`text-2xl lg:text-3xl font-bold text-center mb-6 gradient-text ${i18n.language === 'hi' ? 'hindi-heading' : ''}`}>
           {i18n.language === 'hi' ? 'कमाई के अवसर' : 'Earning Opportunities'}
-        </h2>
+          </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {earningWays.map((way, idx) => (
             <div
@@ -439,13 +439,13 @@ function Home() {
               </button>
             </div>
           ))}
-        </div>
+            </div>
       </section>
 
       {/* Accent Divider */}
       <div className="w-full flex justify-center my-8">
         <div className="h-1 w-32 bg-gradient-to-r from-purple-400 via-blue-400 to-green-400 rounded-full shadow-md" />
-      </div>
+          </div>
 
       {/* Village Services Section - above Quick Links */}
       <section className="relative py-16 px-4 sm:px-6 lg:px-8 overflow-hidden rounded-3xl shadow-lg my-12 bg-gradient-to-br from-blue-50 via-green-50 to-yellow-100">
@@ -460,7 +460,7 @@ function Home() {
             <rect x="40" y="10" width="20" height="8" rx="4" fill="#F59E42" fillOpacity="0.18" />
             <rect x="48" y="18" width="4" height="12" rx="2" fill="#F59E42" fillOpacity="0.18" />
           </svg>
-        </div>
+            </div>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold font-display mb-2">
@@ -481,7 +481,7 @@ function Home() {
               {/* Animated sheen overlay */}
               <div className="absolute inset-0 pointer-events-none z-0">
                 <div className="absolute left-0 top-0 w-full h-full animate-sheen" style={{ background: 'linear-gradient(120deg, transparent 60%, rgba(255,255,255,0.18) 80%, transparent 100%)' }} />
-              </div>
+            </div>
               {/* Dots + wavy pattern overlay */}
               <div className="absolute inset-0 pointer-events-none opacity-10 z-0">
                 <svg width="100%" height="100%" viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -493,7 +493,7 @@ function Home() {
                   <rect width="120" height="60" fill="url(#dots3)" />
                   <path d="M0 50 Q30 40 60 50 T120 50" stroke="#22D3EE" strokeWidth="2" fill="none" opacity="0.15" />
                 </svg>
-              </div>
+            </div>
               {/* Digital motif (wifi/circuit) at bottom-right */}
               <div className="absolute bottom-3 right-3 opacity-20 z-0">
                 <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -501,10 +501,10 @@ function Home() {
                   <path d="M10 24 Q18 14 26 24" stroke="#22D3EE" strokeWidth="2" fill="none" />
                   <circle cx="18" cy="24" r="2" fill="#22D3EE" />
                 </svg>
-              </div>
+          </div>
               <div className="w-14 h-14 rounded-full flex items-center justify-center mb-3 bg-gradient-to-br from-blue-200 via-green-100 to-white shadow-md group-hover:scale-110 transition-transform duration-200 z-10">
                 <span className="text-3xl">🧾</span>
-              </div>
+            </div>
               <h3 className="text-lg font-bold text-blue-900 mb-1 drop-shadow-sm z-10">
                 {i18n.language === 'hi' ? 'भोजन कार्ड स्थिति' : 'Ration Card Status'}
               </h3>
@@ -520,7 +520,7 @@ function Home() {
               {/* Animated sheen overlay */}
               <div className="absolute inset-0 pointer-events-none z-0">
                 <div className="absolute left-0 top-0 w-full h-full animate-sheen" style={{ background: 'linear-gradient(120deg, transparent 60%, rgba(255,255,255,0.18) 80%, transparent 100%)' }} />
-              </div>
+          </div>
               {/* Dots + wavy pattern overlay */}
               <div className="absolute inset-0 pointer-events-none opacity-10 z-0">
                 <svg width="100%" height="100%" viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -532,7 +532,7 @@ function Home() {
                   <rect width="120" height="60" fill="url(#dots3)" />
                   <path d="M0 50 Q30 40 60 50 T120 50" stroke="#22D3EE" strokeWidth="2" fill="none" opacity="0.15" />
                 </svg>
-              </div>
+            </div>
               {/* Digital motif (wifi/circuit) at bottom-right */}
               <div className="absolute bottom-3 right-3 opacity-20 z-0">
                 <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -540,10 +540,10 @@ function Home() {
                   <path d="M10 24 Q18 14 26 24" stroke="#22D3EE" strokeWidth="2" fill="none" />
                   <circle cx="18" cy="24" r="2" fill="#22D3EE" />
                 </svg>
-              </div>
+            </div>
               <div className="w-14 h-14 rounded-full flex items-center justify-center mb-3 bg-gradient-to-br from-blue-200 via-green-100 to-white shadow-md group-hover:scale-110 transition-transform duration-200 z-10">
                 <span className="text-3xl">🌾</span>
-              </div>
+          </div>
               <h3 className="text-lg font-bold text-blue-900 mb-1 drop-shadow-sm z-10">
                 {i18n.language === 'hi' ? 'मंडी भाव' : 'Mandi Bhav'}
               </h3>
@@ -559,7 +559,7 @@ function Home() {
               {/* Animated sheen overlay */}
               <div className="absolute inset-0 pointer-events-none z-0">
                 <div className="absolute left-0 top-0 w-full h-full animate-sheen" style={{ background: 'linear-gradient(120deg, transparent 60%, rgba(255,255,255,0.18) 80%, transparent 100%)' }} />
-              </div>
+          </div>
               {/* Dots + wavy pattern overlay */}
               <div className="absolute inset-0 pointer-events-none opacity-10 z-0">
                 <svg width="100%" height="100%" viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -571,7 +571,7 @@ function Home() {
                   <rect width="120" height="60" fill="url(#dots3)" />
                   <path d="M0 50 Q30 40 60 50 T120 50" stroke="#22D3EE" strokeWidth="2" fill="none" opacity="0.15" />
                 </svg>
-              </div>
+        </div>
               {/* Digital motif (wifi/circuit) at bottom-right */}
               <div className="absolute bottom-3 right-3 opacity-20 z-0">
                 <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -579,17 +579,17 @@ function Home() {
                   <path d="M10 24 Q18 14 26 24" stroke="#22D3EE" strokeWidth="2" fill="none" />
                   <circle cx="18" cy="24" r="2" fill="#22D3EE" />
                 </svg>
-              </div>
+      </div>
               <div className="w-14 h-14 rounded-full flex items-center justify-center mb-3 bg-gradient-to-br from-blue-200 via-green-100 to-white shadow-md group-hover:scale-110 transition-transform duration-200 z-10">
                 <span className="text-3xl">💼</span>
-              </div>
+        </div>
               <h3 className="text-lg font-bold text-blue-900 mb-1 drop-shadow-sm z-10">
                 {i18n.language === 'hi' ? 'रोजगार केंद्र' : 'Rozgar Kendra'}
               </h3>
               <p className="text-black text-center text-sm z-10">
                 {i18n.language === 'hi' ? 'स्थानीय और सरकारी नौकरियों खोजें' : 'Find local and government jobs'}
               </p>
-            </div>
+                    </div>
             {/* Scholarship Center */}
             <div
               className="relative cursor-pointer bg-gradient-to-br from-blue-50 via-green-50 to-white border-2 border-blue-400 rounded-3xl shadow-xl shadow-blue-200/40 p-7 flex flex-col items-center hover:-translate-y-2 hover:shadow-blue-300/60 hover:shadow-2xl transition-transform duration-200 group"
@@ -598,7 +598,7 @@ function Home() {
               {/* Animated sheen overlay */}
               <div className="absolute inset-0 pointer-events-none z-0">
                 <div className="absolute left-0 top-0 w-full h-full animate-sheen" style={{ background: 'linear-gradient(120deg, transparent 60%, rgba(255,255,255,0.18) 80%, transparent 100%)' }} />
-              </div>
+                  </div>
               {/* Dots + wavy pattern overlay */}
               <div className="absolute inset-0 pointer-events-none opacity-10 z-0">
                 <svg width="100%" height="100%" viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -610,7 +610,7 @@ function Home() {
                   <rect width="120" height="60" fill="url(#dots3)" />
                   <path d="M0 50 Q30 40 60 50 T120 50" stroke="#22D3EE" strokeWidth="2" fill="none" opacity="0.15" />
                 </svg>
-              </div>
+                </div>
               {/* Digital motif (wifi/circuit) at bottom-right */}
               <div className="absolute bottom-3 right-3 opacity-20 z-0">
                 <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -618,17 +618,17 @@ function Home() {
                   <path d="M10 24 Q18 14 26 24" stroke="#22D3EE" strokeWidth="2" fill="none" />
                   <circle cx="18" cy="24" r="2" fill="#22D3EE" />
                 </svg>
-              </div>
+                    </div>
               <div className="w-14 h-14 rounded-full flex items-center justify-center mb-3 bg-gradient-to-br from-blue-200 via-green-100 to-white shadow-md group-hover:scale-110 transition-transform duration-200 z-10">
                 <span className="text-3xl">🎓</span>
-              </div>
+                  </div>
               <h3 className="text-lg font-bold text-blue-900 mb-1 drop-shadow-sm z-10">
                 {i18n.language === 'hi' ? 'छात्रवृत्ति केंद्र और छात्र मदद' : 'Scholarship & Student Help Center'}
               </h3>
               <p className="text-black text-center text-sm z-10">
                 {i18n.language === 'hi' ? 'छात्रवृत्ति और गाइड खोजें' : 'Find scholarships and guides'}
               </p>
-            </div>
+                </div>
             {/* Village Assistant */}
             <div
               className="relative cursor-pointer bg-gradient-to-br from-blue-50 via-green-50 to-white border-2 border-blue-400 rounded-3xl shadow-xl shadow-blue-200/40 p-7 flex flex-col items-center hover:-translate-y-2 hover:shadow-blue-300/60 hover:shadow-2xl transition-transform duration-200 group"
@@ -637,7 +637,7 @@ function Home() {
               {/* Animated sheen overlay */}
               <div className="absolute inset-0 pointer-events-none z-0">
                 <div className="absolute left-0 top-0 w-full h-full animate-sheen" style={{ background: 'linear-gradient(120deg, transparent 60%, rgba(255,255,255,0.18) 80%, transparent 100%)' }} />
-              </div>
+                    </div>
               {/* Dots + wavy pattern overlay */}
               <div className="absolute inset-0 pointer-events-none opacity-10 z-0">
                 <svg width="100%" height="100%" viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -649,7 +649,7 @@ function Home() {
                   <rect width="120" height="60" fill="url(#dots3)" />
                   <path d="M0 50 Q30 40 60 50 T120 50" stroke="#22D3EE" strokeWidth="2" fill="none" opacity="0.15" />
                 </svg>
-              </div>
+                  </div>
               {/* Digital motif (wifi/circuit) at bottom-right */}
               <div className="absolute bottom-3 right-3 opacity-20 z-0">
                 <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -657,7 +657,7 @@ function Home() {
                   <path d="M10 24 Q18 14 26 24" stroke="#22D3EE" strokeWidth="2" fill="none" />
                   <circle cx="18" cy="24" r="2" fill="#22D3EE" />
                 </svg>
-              </div>
+                </div>
               <div className="w-14 h-14 rounded-full flex items-center justify-center mb-3 bg-gradient-to-br from-blue-200 via-green-100 to-white shadow-md group-hover:scale-110 transition-transform duration-200 z-10">
                 <span className="text-3xl">🤖</span>
               </div>
@@ -667,7 +667,7 @@ function Home() {
               <p className="text-black text-center text-sm z-10">
                 {i18n.language === 'hi' ? 'योजनाओं, फॉर्मों या दस्तावेजों के बारे में पूछें' : 'Ask about schemes, forms, or documents'}
               </p>
-            </div>
+                    </div>
             {/* Grievance Box */}
             <div
               className="relative cursor-pointer bg-gradient-to-br from-blue-50 via-green-50 to-white border-2 border-blue-400 rounded-3xl shadow-xl shadow-blue-200/40 p-7 flex flex-col items-center hover:-translate-y-2 hover:shadow-blue-300/60 hover:shadow-2xl transition-transform duration-200 group"
@@ -699,10 +699,10 @@ function Home() {
             </div>
               <div className="w-14 h-14 rounded-full flex items-center justify-center mb-3 bg-gradient-to-br from-blue-200 via-green-100 to-white shadow-md group-hover:scale-110 transition-transform duration-200 z-10">
                 <span className="text-3xl">📝</span>
-            </div>
+          </div>
               <h3 className="text-lg font-bold text-blue-900 mb-1 drop-shadow-sm z-10">
                 {i18n.language === 'hi' ? 'ग्रीवेंस बॉक्स' : 'Grievance Box'}
-              </h3>
+            </h3>
               <p className="text-black text-center text-sm z-10">
                 {i18n.language === 'hi'
                   ? 'अपनी सुझाव या शिकायत यहाँ दर्ज करें'
@@ -712,8 +712,8 @@ function Home() {
           </div>
         </div>
       </section>
+        </div>
       </div>
-    </div>
   );
 }
 

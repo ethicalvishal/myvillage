@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import DesignerCardBackground from './DesignerCardBackground';
@@ -7,6 +7,7 @@ function Transport() {
   const { i18n } = useTranslation();
   const lang = i18n.language || 'hi';
   const navigate = useNavigate();
+  const [showAllWards, setShowAllWards] = useState(false);
 
   const handleGoBack = () => {
     navigate(-1); // Go back to previous page in history
@@ -282,11 +283,9 @@ function Transport() {
         </DesignerCardBackground>
 
         <DesignerCardBackground variant="default">
-          <h3 className={`text-2xl font-bold mb-6 gradient-text ${i18n.language === 'hi' ? 'hindi-heading' : ''}`}>
-            {lang === 'hi' ? 'यातायात (वार्ड अनुसार)' : 'Transport (Ward-wise)'}
-          </h3>
+          <h3 className={`text-2xl font-bold mb-6 gradient-text ${i18n.language === 'hi' ? 'hindi-heading' : ''}`}>{lang === 'hi' ? 'यातायात (वार्ड अनुसार)' : 'Transport (Ward-wise)'}</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[...Array(22)].map((_, idx) => {
+            {[...Array(22)].slice(0, showAllWards ? 22 : 3).map((_, idx) => {
               const wardNum = idx + 1;
               let data = null;
               
@@ -353,6 +352,16 @@ function Transport() {
                 </div>
               );
             })}
+          </div>
+          <div className="flex justify-center mt-6">
+            <button
+              className="px-6 py-2 bg-gradient-to-r from-blue-500 to-green-400 text-white font-semibold rounded-full shadow hover:scale-105 transition-all duration-200"
+              onClick={() => setShowAllWards(v => !v)}
+            >
+              {showAllWards
+                ? (lang === 'hi' ? 'कम दिखाएं' : 'Show Less')
+                : (lang === 'hi' ? 'सभी वार्ड देखें' : 'See All Wards')}
+            </button>
         </div>
         </DesignerCardBackground>
       </div>
