@@ -199,7 +199,7 @@ function App() {
   };
 
   return (
-    <Router>
+    <Router basename="/myvillage">
       <ScrollToTop />
       <div className="min-h-screen relative">
         <ModernBackground />
@@ -208,8 +208,8 @@ function App() {
         {/* Main Content with top padding for fixed header */}
         <main className="pt-20 lg:pt-24">
         <Routes>
+          <Route index element={<Home />} />
           <Route path="/" element={<Home />} />
-          <Route path="/bairiyadih-village" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/people" element={<People />} />
           <Route path="/education" element={<Education />} />

@@ -2,7 +2,7 @@
   "name": "bairiyadih-village",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://ethicalvishal.github.io/Bairiyadih-village/",
+  "homepage": "https://ethicalvishal.github.io/myvillage/",
   "dependencies": {
     "@fontsource/noto-sans-devanagari": "^5.2.6",
     "@fontsource/roboto": "^5.2.6",
