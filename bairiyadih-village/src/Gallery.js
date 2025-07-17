@@ -13,17 +13,27 @@ function Gallery() {
     { icon: '🎪', hi: 'मेला', en: 'Fair', descHi: 'गाँव का मेला', descEn: 'Village fair' },
     { icon: '⚽', hi: 'खेल', en: 'Sports', descHi: 'गाँव के खेल', descEn: 'Village sports' }
   ];
-  const [form, setForm] = React.useState({ name: '', url: '', category: '', caption: '' });
+  const [form, setForm] = React.useState({ name: '', file: null, category: '', caption: '' });
+  const [selectedFileName, setSelectedFileName] = React.useState('');
   const [formMsg, setFormMsg] = React.useState(null);
   const [showForm, setShowForm] = React.useState(false);
-  const handleFormChange = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }));
+  const handleFormChange = e => {
+    if (e.target.name === 'file') {
+      const file = e.target.files[0];
+      setForm(f => ({ ...f, file: file }));
+      setSelectedFileName(file ? file.name : '');
+    } else {
+      setForm(f => ({ ...f, [e.target.name]: e.target.value }));
+    }
+  };
   const handleFormSubmit = async e => {
     e.preventDefault();
     setFormMsg(null);
     try {
       await new Promise(res => setTimeout(res, 700));
       setFormMsg({ type: 'success', text: lang === 'hi' ? 'फोटो भेज दी गई!' : 'Photo submitted!' });
-      setForm({ name: '', url: '', category: '', caption: '' });
+      setForm({ name: '', file: null, category: '', caption: '' });
+      setSelectedFileName('');
     } catch {
       setFormMsg({ type: 'error', text: lang === 'hi' ? 'फोटो भेजने में त्रुटि!' : 'Failed to submit photo!' });
     }
@@ -80,15 +90,101 @@ function Gallery() {
             <div className="relative mt-4 bg-orange-50 rounded-xl shadow-lg border-l-4 border-orange-400 p-6">
               <button onClick={() => { setShowForm(false); setFormMsg(null); }} className="absolute top-2 right-2 text-gray-400 hover:text-orange-500 text-xl font-bold focus:ring-2 focus:ring-orange-500" aria-label="Close">✕</button>
               <h3 className="text-lg font-bold text-orange-700 mb-3 text-center">{lang === 'hi' ? 'फोटो जोड़ें' : 'Add Photo'}</h3>
-              <form className="flex flex-col gap-3" onSubmit={handleFormSubmit}>
-                <input name="name" value={form.name} onChange={handleFormChange} required placeholder={lang === 'hi' ? 'आपका नाम' : 'Your Name'} className="p-2 rounded border border-orange-200 focus:border-orange-400 focus:shadow focus:shadow-orange-100 transition-all" />
-                <input name="url" value={form.url} onChange={handleFormChange} required placeholder={lang === 'hi' ? 'फोटो URL' : 'Photo URL'} className="p-2 rounded border border-orange-200 focus:border-orange-400 focus:shadow focus:shadow-orange-100 transition-all" />
-                <select name="category" value={form.category} onChange={handleFormChange} required className="p-2 rounded border border-orange-200 focus:border-orange-400 focus:shadow focus:shadow-orange-100 transition-all">
-                  <option value="">{lang === 'hi' ? 'श्रेणी चुनें' : 'Select Category'}</option>
-                  {categories.map((cat, i) => <option key={i} value={lang === 'hi' ? cat.hi : cat.en}>{lang === 'hi' ? cat.hi : cat.en}</option>)}
-                </select>
-                <input name="caption" value={form.caption} onChange={handleFormChange} placeholder={lang === 'hi' ? 'कैप्शन/विवरण' : 'Caption/Description'} className="p-2 rounded border border-orange-200 focus:border-orange-400 focus:shadow focus:shadow-orange-100 transition-all" />
-                <button type="submit" className="bg-gradient-to-r from-orange-500 to-yellow-400 text-white px-6 py-2 rounded-lg font-bold text-base shadow hover:from-orange-600 hover:to-yellow-500 transition-all mt-2 focus:ring-2 focus:ring-orange-500">{lang === 'hi' ? 'फोटो भेजें' : 'Submit Photo'}</button>
+              <form className="flex flex-col gap-4" onSubmit={handleFormSubmit}>
+                {/* Name Input */}
+                <div>
+                  <label className="block text-sm font-medium text-black mb-2">
+                    {lang === 'hi' ? 'आपका नाम' : 'Your Name'}
+                  </label>
+                  <input 
+                    name="name" 
+                    value={form.name} 
+                    onChange={handleFormChange} 
+                    required 
+                    placeholder={lang === 'hi' ? 'अपना पूरा नाम लिखें' : 'Enter your full name'} 
+                    className="w-full p-3 rounded-lg border border-orange-200 focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition-all bg-white text-black" 
+                  />
+                </div>
+
+                {/* Photo Upload */}
+                <div>
+                  <label className="block text-sm font-medium text-black mb-2">
+                    {lang === 'hi' ? 'फोटो अपलोड करें' : 'Upload Photo'}
+                  </label>
+                  <div className="relative">
+                    <input 
+                      type="file" 
+                      name="file" 
+                      onChange={handleFormChange} 
+                      accept="image/*"
+                      required 
+                      className="hidden" 
+                      id="photo-upload"
+                    />
+                    <label 
+                      htmlFor="photo-upload" 
+                      className="flex items-center justify-start gap-3 p-4 rounded-lg border-2 border-dashed border-orange-300 hover:border-orange-400 focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition-all cursor-pointer bg-orange-50 hover:bg-orange-100 min-h-[60px]"
+                    >
+                      <span className="text-orange-600 text-2xl">📷</span>
+                      <span className="text-black font-medium">
+                        {selectedFileName || (lang === 'hi' ? 'फोटो चुनने के लिए क्लिक करें' : 'Click to choose photo')}
+                      </span>
+                    </label>
+                    {selectedFileName && (
+                      <div className="mt-2 p-2 bg-green-50 rounded-lg border border-green-200">
+                        <div className="text-sm text-green-700 flex items-center gap-2">
+                          <span className="text-green-600">✓</span>
+                          <span>{lang === 'hi' ? 'फोटो चुनी गई:' : 'Selected:'}</span>
+                          <span className="font-medium">{selectedFileName}</span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Category Selection */}
+                <div>
+                  <label className="block text-sm font-medium text-black mb-2">
+                    {lang === 'hi' ? 'श्रेणी चुनें' : 'Select Category'}
+                  </label>
+                  <select 
+                    name="category" 
+                    value={form.category} 
+                    onChange={handleFormChange} 
+                    required 
+                    className="w-full p-3 rounded-lg border border-orange-200 focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition-all bg-white text-black"
+                  >
+                    <option value="">{lang === 'hi' ? 'श्रेणी चुनें' : 'Select Category'}</option>
+                    {categories.map((cat, i) => (
+                      <option key={i} value={lang === 'hi' ? cat.hi : cat.en}>
+                        {lang === 'hi' ? cat.hi : cat.en}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Caption Input */}
+                <div>
+                  <label className="block text-sm font-medium text-black mb-2">
+                    {lang === 'hi' ? 'कैप्शन या विवरण' : 'Caption or Description'}
+                  </label>
+                  <textarea 
+                    name="caption" 
+                    value={form.caption} 
+                    onChange={handleFormChange} 
+                    placeholder={lang === 'hi' ? 'फोटो के बारे में कुछ लिखें (वैकल्पिक)' : 'Write something about the photo (optional)'} 
+                    rows="3"
+                    className="w-full p-3 rounded-lg border border-orange-200 focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition-all bg-white resize-none text-black" 
+                  />
+                </div>
+
+                {/* Submit Button */}
+                <button 
+                  type="submit" 
+                  className="w-full bg-gradient-to-r from-orange-500 to-yellow-400 text-white py-3 px-6 rounded-lg font-bold text-base shadow-lg hover:from-orange-600 hover:to-yellow-500 transition-all focus:ring-2 focus:ring-orange-500 transform hover:scale-105"
+                >
+                  {lang === 'hi' ? 'फोटो भेजें' : 'Submit Photo'}
+                </button>
               </form>
               {formMsg && <div className={`mt-3 text-sm font-bold ${formMsg.type === 'success' ? 'text-green-700' : 'text-red-700'}`}>{formMsg.text}</div>}
             </div>

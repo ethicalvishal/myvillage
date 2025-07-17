@@ -4,6 +4,7 @@ import { collection, addDoc, getDocs, query, where, serverTimestamp, orderBy } f
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth';
 import DesignerCardBackground from './DesignerCardBackground';
+import { useTranslation } from 'react-i18next';
 
 const MODULES = [
   {
@@ -120,7 +121,8 @@ const CATEGORIES = [
 ];
 
 function Videos() {
-  const [lang, setLang] = useState('hi');
+  const { i18n } = useTranslation();
+  const lang = i18n.language || 'hi';
   const [active, setActive] = useState('gallery');
   const [galleryCategory, setGalleryCategory] = useState('all');
   const [uploadForm, setUploadForm] = useState({
@@ -463,7 +465,7 @@ function Videos() {
           >English</button>
         </div>
       </div> */}
-      <DesignerCardBackground variant="default">
+      <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl p-2 px-2 w-full max-w-[95vw] mx-auto overflow-x-hidden sm:p-8 sm:max-w-6xl sm:rounded-3xl sm:mt-8 sm:mb-8 sm:border-l-8 sm:border-orange-400 sm:relative sm:z-10 sm:overflow-hidden">
         <div className="text-center mb-8">
           <span className="text-6xl mb-2 animate-bounce" role="img" aria-label="videos">📺</span>
           <h2 className="text-4xl font-extrabold text-blue-800 mb-2 drop-shadow-lg tracking-tight leading-[1.2] hindi-heading">
@@ -480,7 +482,8 @@ function Videos() {
           {MODULES.map((mod, i) => (
             <div
               key={mod.key}
-              className={`bg-white/80 rounded-2xl shadow-xl p-6 flex flex-col items-center border-l-8 cursor-pointer transition-all duration-200 ${active === mod.key ? 'border-blue-700 ring-2 ring-blue-300 scale-105 bg-blue-50' : 'border-blue-400 hover:bg-blue-100 hover:scale-105'}`}
+              className={`bg-white/80 rounded-2xl shadow-xl p-4 w-full mb-2 border-l-4 transition-all duration-200 cursor-pointer 
+                ${active === mod.key ? 'border-green-500 scale-105 shadow-2xl' : 'border-blue-400 hover:shadow-2xl hover:scale-105'}`}
               onClick={() => setActive(mod.key)}
               tabIndex={0}
               role="button"
@@ -558,7 +561,7 @@ function Videos() {
                             <option key={cat.key} value={cat.key}>{cat.emoji} {lang === 'hi' ? cat.hi : cat.en}</option>
                           ))}
                         </select>
-                        <div className="flex gap-2 mt-1">
+                        <div className="flex flex-wrap gap-2 mt-1 w-full sm:w-auto">
                           <button type="submit" className="bg-green-500 text-white px-2 py-1 rounded-full font-semibold shadow hover:bg-green-600 transition-all duration-200">{lang === 'hi' ? 'सेव' : 'Save'}</button>
                           <button type="button" onClick={() => setYtEditId(null)} className="bg-gray-300 text-gray-800 px-2 py-1 rounded-full font-semibold shadow hover:bg-gray-400 transition-all duration-200">{lang === 'hi' ? 'रद्द' : 'Cancel'}</button>
                         </div>
@@ -728,7 +731,7 @@ function Videos() {
             </button>
             {showUploadForm && (
             <form
-                className="bg-white/95 rounded-2xl shadow-2xl p-6 flex flex-col gap-5 border border-blue-100 animate-fade-in"
+                className="bg-orange-50 border-l-4 border-orange-400 rounded-xl shadow-lg p-4 px-2 mx-2 w-full max-w-[95vw] mx-auto gap-3 sm:bg-white/95 sm:rounded-2xl sm:shadow-2xl sm:p-6 sm:border sm:border-blue-100"
               onSubmit={handleUpload}
             >
               <div className="flex flex-col gap-1">
@@ -855,7 +858,7 @@ function Videos() {
                             <option key={cat.key} value={cat.key}>{cat.emoji} {lang === 'hi' ? cat.hi : cat.en}</option>
                           ))}
                         </select>
-                        <div className="flex gap-2 mt-1">
+                        <div className="flex flex-wrap gap-2 mt-1 w-full sm:w-auto">
                           <button type="submit" className="bg-green-500 text-white px-2 py-1 rounded-full font-semibold shadow hover:bg-green-600 transition-all duration-200">{lang === 'hi' ? 'सेव' : 'Save'}</button>
                           <button type="button" onClick={() => setUploadEditId(null)} className="bg-gray-300 text-gray-800 px-2 py-1 rounded-full font-semibold shadow hover:bg-gray-400 transition-all duration-200">{lang === 'hi' ? 'रद्द' : 'Cancel'}</button>
                         </div>
@@ -889,7 +892,7 @@ function Videos() {
             )}
           </DesignerCardBackground>
         )}
-      </DesignerCardBackground>
+      </div>
     </main>
   );
 }

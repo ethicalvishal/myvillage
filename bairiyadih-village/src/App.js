@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import Home from './Home';
 import About from './About';
 import People from './People';
@@ -51,8 +51,27 @@ const navLinks = [
 
 // Professional Village Header Component
 function ModernHeader({ lang, handleLangChange }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [langDropdown, setLangDropdown] = useState(false);
+  const langRef = useRef();
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (langRef.current && !langRef.current.contains(event.target)) {
+        setLangDropdown(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const langOptions = [
+    { code: 'hi', label: 'हिन्दी', icon: <span role="img" aria-label="hi">🇮🇳</span> },
+    { code: 'en', label: 'English', icon: <span role="img" aria-label="en">🇬🇧</span> },
+  ];
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-[#7bc043] via-[#aee1f9] via-40% via-[#ffe066] to-[#ff914d] border-b-2 border-green-400 shadow-2xl">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-[#7bc043] via-[#aee1f9] via-40% via-[#ffe066] to-[#ff914d] border-b-2 border-green-400 shadow-2xl md:rounded-b-3xl md:backdrop-blur-xl md:shadow-lg md:border-b-4 md:border-green-600 md:border-double md:border-t-0 md:pt-4 md:pb-2 md:px-6 md:bg-[url('data:image/svg+xml,%3Csvg width=\'320\' height=\'60\' viewBox=\'0 0 320 60\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cellipse cx=\'160\' cy=\'50\' rx=\'150\' ry=\'10\' fill=\'%23ffe066\' fill-opacity=\'0.12\'/%3E%3Ccircle cx=\'40\' cy=\'20\' r=\'6\' fill=\'%23ff9933\'/%3E%3Ccircle cx=\'280\' cy=\'20\' r=\'6\' fill=\'%23138808\'/%3E%3C/svg%3E')] transition-all duration-300">
       <div className="absolute inset-0 w-full h-full pointer-events-none select-none opacity-15 z-0">
         {/* Subtle SVG rural motif: sun, field, sky */}
         <svg width="100%" height="100%" viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="absolute bottom-0 left-0">
@@ -61,25 +80,84 @@ function ModernHeader({ lang, handleLangChange }) {
           <ellipse cx="800" cy="100" rx="300" ry="30" fill="#aee1f9" /> {/* Sky */}
       </svg>
     </div>
-      <div className="relative max-w-7xl mx-auto flex items-center justify-between h-20 px-2 sm:px-6 lg:px-8">
+      <div className="relative max-w-7xl mx-auto flex items-center justify-between h-16 md:h-20 px-0 sm:px-2 lg:px-4">
+        {/* Left: Hamburger for mobile */}
+        <div className="flex md:hidden mr-3">
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Open navigation"
+            className={`relative inline-flex items-center justify-center rounded-full border-4 shadow-2xl transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-green-300 bg-white hover:bg-yellow-100 active:scale-95 hover:scale-110 hover:shadow-[0_8px_32px_0_rgba(255,152,0,0.25),0_2px_16px_0_#43a04755] hover:border-orange-400`}
+            style={{ width: 40, height: 40, boxShadow: '0 4px 24px 0 #43a04733' }}
+            aria-controls="mobile-menu"
+            aria-expanded={menuOpen}
+          >
+            {/* Animated gradient border */}
+            <span className="absolute inset-0 rounded-full pointer-events-none z-0"
+              style={{
+                background: 'conic-gradient(from 0deg, #ff9800, #fff, #43a047, #ff9800)',
+                padding: 2,
+                WebkitMaskImage: 'radial-gradient(circle, white 90%, transparent 100%)'
+              }}
+            ></span>
+            {/* Animated chakra/rangoli motif */}
+            <span className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-40 animate-spin-slow">
+              <svg width="32" height="32" viewBox="0 0 36 36">
+                <circle cx="18" cy="18" r="15" stroke="#ff9800" strokeWidth="2" fill="none" />
+                <circle cx="18" cy="18" r="9" stroke="#43a047" strokeWidth="1.5" fill="none" />
+                <circle cx="18" cy="18" r="3" fill="#43a047" />
+              </svg>
+            </span>
+            {/* Triple line hamburger */}
+            <svg className="h-5 w-5 text-green-900 relative z-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              {menuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <>
+                  <rect x="4" y="7" width="16" height="2.2" rx="1" fill="currentColor" />
+                  <rect x="4" y="11" width="16" height="2.2" rx="1" fill="currentColor" />
+                  <rect x="4" y="15" width="16" height="2.2" rx="1" fill="currentColor" />
+                </>
+              )}
+            </svg>
+            <style>{`
+              .animate-spin-slow {
+                animation: spin 3s linear infinite;
+              }
+              @keyframes spin {
+                100% { transform: rotate(360deg); }
+              }
+            `}</style>
+          </button>
+        </div>
         {/* Left: Logo and Village Name */}
-        <div className="flex items-center space-x-3 flex-shrink-0">
-          <div className="w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center border-4 border-green-200 ring-2 ring-green-300">
-            <span className="text-3xl" role="img" aria-label="village">🏡</span>
+        <div className="flex items-center space-x-3 flex-shrink-0 md:ml-2">
+          <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-orange-50 via-yellow-50 to-green-50 rounded-full shadow-2xl flex items-center justify-center border-4 border-orange-500 ring-4 ring-orange-300 md:border-orange-400 md:ring-4 md:ring-offset-2 md:ring-offset-[#ffe066] relative overflow-hidden">
+            {/* Enhanced desi rangoli pattern overlay */}
+            <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' viewBox=\'0 0 40 40\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Ccircle cx=\'20\' cy=\'20\' r=\'16\' stroke=\'%23ff9933\' stroke-width=\'1.5\' fill=\'none\' opacity=\'0.5\'/%3E%3Ccircle cx=\'20\' cy=\'20\' r=\'10\' stroke=\'%23ff6b35\' stroke-width=\'1\' fill=\'none\' opacity=\'0.4\'/%3E%3Ccircle cx=\'20\' cy=\'20\' r=\'4\' fill=\'%23ff9933\' opacity=\'0.3\'/%3E%3Cpath d=\'M20 4 L20 36 M4 20 L36 20\' stroke=\'%23ff6b35\' stroke-width=\'0.5\' opacity=\'0.3\'/%3E%3Cpath d=\'M20 8 L20 32 M8 20 L32 20\' stroke=\'%23ff9933\' stroke-width=\'0.3\' opacity=\'0.2\'/%3E%3C/svg%3E')] bg-center bg-no-repeat opacity-60"></div>
+            {/* Multiple shine effects */}
+            <div className="absolute top-1 left-1 w-2 h-2 bg-white rounded-full opacity-90 shadow-sm"></div>
+            <div className="absolute top-2 right-2 w-1 h-1 bg-yellow-200 rounded-full opacity-70"></div>
+            {/* Village house emoji with enhanced styling */}
+            <span className="text-2xl md:text-3xl relative z-10 drop-shadow-lg transform hover:scale-110 transition-transform duration-200 animate-pulse" role="img" aria-label="village">🏡</span>
+            {/* Glow effect */}
+            <div className="absolute inset-0 bg-gradient-to-br from-orange-200 to-transparent opacity-20 rounded-full"></div>
           </div>
           <div className="flex flex-col">
-            <span className="text-2xl md:text-3xl font-bold text-green-900 leading-tight drop-shadow-sm">{lang === 'hi' ? 'बैरियाडीह' : 'Bairiyadih'}</span>
+            <span className="text-xl md:text-2xl font-bold text-green-900 leading-tight drop-shadow-sm md:drop-shadow-lg md:tracking-wide md:font-extrabold md:text-orange-800 relative">
+              {lang === 'hi' ? 'बैरियाडीह' : 'Bairiyadih'}
+              {/* Enhanced underline effect */}
+              <div className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-orange-400 via-yellow-400 to-green-400 rounded-full opacity-70 shadow-sm"></div>
+              {/* Decorative dots */}
+              <div className="absolute -bottom-3 left-1 w-1 h-1 bg-orange-400 rounded-full opacity-80"></div>
+              <div className="absolute -bottom-3 right-1 w-1 h-1 bg-green-400 rounded-full opacity-80"></div>
+            </span>
           </div>
         </div>
-        {/* Center: Navigation */}
-        <div className="relative flex-1 mx-4 min-w-0">
-          {/* Left fade */}
-          <div className="pointer-events-none absolute left-0 top-0 h-full w-8 z-20 rounded-l-2xl" style={{background: 'radial-gradient(circle at left, #fff9 80%, transparent 100%)'}}></div>
-          {/* Right fade */}
-          <div className="pointer-events-none absolute right-0 top-0 h-full w-8 z-20 rounded-r-2xl" style={{background: 'radial-gradient(circle at right, #fff9 80%, transparent 100%)'}}></div>
-          <nav className="flex items-center overflow-x-auto whitespace-nowrap bg-green-100/70 backdrop-blur-2xl rounded-2xl px-2 py-2 shadow-2xl border border-green-300 min-w-0 gap-x-1 scrollbar-thin scrollbar-thumb-green-200 scrollbar-track-transparent relative transition-all duration-300 touch-pan-x" style={{boxShadow: '0 8px 32px 0 rgba(60,80,40,0.18), 0 2px 16px 0 #b6e2a1'}}>
-            {/* Faint SVG pattern */}
-            <div className="absolute inset-0 pointer-events-none opacity-10 z-0" style={{backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'32\' height=\'32\' viewBox=\'0 0 32 32\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cellipse cx=\'16\' cy=\'28\' rx=\'12\' ry=\'4\' fill=\'%23b6e2a1\'/%3E%3Cellipse cx=\'8\' cy=\'24\' rx=\'6\' ry=\'2\' fill=\'%23e7d9c1\'/%3E%3Cellipse cx=\'24\' cy=\'26\' rx=\'8\' ry=\'2\' fill=\'%23d0eaff\'/%3E%3C/svg%3E")', backgroundSize: '32px 32px'}}></div>
+        {/* Center: Navigation Bar (desktop only) */}
+        <div className="hidden md:flex flex-1 mx-4 min-w-0">
+          <nav className="flex items-center overflow-x-auto whitespace-nowrap bg-green-100/70 backdrop-blur-2xl rounded-xl px-2 py-1 shadow-md border border-green-300 min-w-0 gap-x-1 scrollbar-thin scrollbar-thumb-green-200 scrollbar-track-transparent relative transition-all duration-300 touch-pan-x
+            bg-[url('data:image/svg+xml,%3Csvg width=\'120\' height=\'40\' viewBox=\'0 0 120 40\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cellipse cx=\'60\' cy=\'20\' rx=\'58\' ry=\'16\' fill=\'%23ffe066\' fill-opacity=\'0.18\'/%3E%3Ccircle cx=\'20\' cy=\'20\' r=\'4\' fill=\'%23ff9933\'/%3E%3Ccircle cx=\'100\' cy=\'20\' r=\'4\' fill=\'%23138808\'/%3E%3C/svg%3E')] bg-no-repeat bg-center">
+            {/* nav links */}
             {navLinks.map((link) => {
               return (
                 <NavLink
@@ -89,48 +167,83 @@ function ModernHeader({ lang, handleLangChange }) {
                   className="group relative focus:outline-none focus-visible:ring-2 focus-visible:ring-green-400"
                 >
                   <div
-                    className={`flex items-center space-x-2 px-3 py-1.5 rounded-full text-base font-semibold transition-all duration-200
+                    className={`flex items-center space-x-2 px-2 py-1 rounded-full text-sm font-semibold transition-all duration-200
                       hover:text-green-700 active:scale-95`}
                   >
-                    <span className="text-2xl flex items-center justify-center transition-all duration-200 group-hover:animate-bounce text-black">{link.icon}</span>
-                    <span className="leading-tight select-none text-black">{link.label[lang]}</span>
+                    <span className="text-xl flex items-center justify-center transition-all duration-200 group-hover:animate-bounce text-black drop-shadow-sm">{link.icon}</span>
+                    <span className="leading-tight select-none text-black font-bold text-sm tracking-wide">{link.label[lang]}</span>
                   </div>
                 </NavLink>
               );
             })}
           </nav>
         </div>
-        {/* Right: Language Switcher */}
-        <div className="flex items-center space-x-1 flex-shrink-0 ml-2">
+        {/* Right: Language Buttons (desktop: both, mobile: toggle) */}
+        <div className="ml-auto flex-shrink-0 md:mr-6">
+          {/* Mobile: single toggle button */}
           <button
-            onClick={() => handleLangChange('hi')}
-            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 border-2 border-green-600 shadow-md focus-visible:ring-2 focus-visible:ring-green-400
-              ${lang === 'hi' ? 'bg-green-600 text-white' : 'bg-transparent text-green-700 hover:bg-green-600 hover:text-white'}`}
+            onClick={() => handleLangChange(lang === 'hi' ? 'en' : 'hi')}
+            className={`flex items-center gap-2 rounded-lg font-semibold border-2 border-green-600 shadow-md bg-white transition-all duration-200 focus-visible:ring-2 focus-visible:ring-green-400 text-black hover:bg-yellow-100 hover:border-orange-400 hover:scale-105
+              ${lang === 'en' ? 'px-3 py-1.5 text-xs md:hidden' : 'px-4 py-2 text-sm md:hidden'}`}
+            aria-label="Switch language"
           >
-            हिन्दी
+            <svg className="w-5 h-5 text-green-700" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20" /></svg>
+            <span className="text-black">{lang === 'hi' ? 'हिन्दी' : 'English'}</span>
           </button>
-          <button
-            onClick={() => handleLangChange('en')}
-            className={`px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 border-2 border-green-600 shadow-md focus-visible:ring-2 focus-visible:ring-green-400
-              ${lang === 'en' ? 'bg-green-600 text-white' : 'bg-transparent text-green-700 hover:bg-green-600 hover:text-white'}`}
-          >
-            English
-          </button>
+          {/* Desktop: both buttons grouped together (modern pill toggle) */}
+          <div className="hidden md:flex bg-white/90 rounded-full border-2 border-green-400 shadow-md gap-0 p-1 items-center">
+            <button
+              onClick={() => handleLangChange('hi')}
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-full font-bold transition-all duration-200 focus-visible:ring-2 focus-visible:ring-green-400
+                ${lang === 'hi' ? 'bg-green-600 text-white shadow-sm scale-105 z-10' : 'bg-transparent text-green-700 hover:bg-green-50'}`}
+              aria-label="हिन्दी"
+            >
+              <span>हिन्दी</span>
+            </button>
+            <button
+              onClick={() => handleLangChange('en')}
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-full font-bold transition-all duration-200 focus-visible:ring-2 focus-visible:ring-green-400
+                ${lang === 'en' ? 'bg-green-600 text-white shadow-sm scale-105 z-10' : 'bg-transparent text-green-700 hover:bg-green-50'}`}
+              aria-label="English"
+            >
+              <span>English</span>
+            </button>
+          </div>
         </div>
       </div>
+      {/* Mobile nav menu */}
+      {menuOpen && (
+        <div className="md:hidden bg-green-50 border-b border-green-200 shadow-lg">
+          <nav className="flex flex-col gap-1 py-2 px-4">
+            {navLinks.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                exact={link.exact}
+                className="flex items-center space-x-2 py-2 px-3 rounded-lg text-lg font-semibold hover:bg-green-100 active:scale-95"
+                onClick={() => setMenuOpen(false)}
+              >
+                <span className="text-2xl text-black">{link.icon}</span>
+                <span className="text-black">{link.label[lang]}</span>
+              </NavLink>
+            ))}
+          </nav>
+        </div>
+      )}
     </header>
   );
 }
 
 // Custom NavLink component with active state
-function NavLink({ to, exact, children, className }) {
+function NavLink({ to, exact, children, className, onClick }) {
   const location = useLocation();
   const isActive = exact ? location.pathname === to : location.pathname.startsWith(to);
-  
+
   return (
     <Link
       to={to}
       className={`${className} ${isActive ? 'active' : ''}`}
+      onClick={onClick}
     >
       {children}
     </Link>
@@ -141,7 +254,8 @@ function NavLink({ to, exact, children, className }) {
 function ScrollToTop() {
   const { pathname } = useLocation();
   React.useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    // Always scroll to the very top of the page
+    window.scrollTo(0, 0);
   }, [pathname]);
   return null;
 }
@@ -204,7 +318,7 @@ function App() {
       <div className="min-h-screen relative">
         <ModernBackground />
         <ModernHeader lang={lang} handleLangChange={handleLangChange} />
-        
+
         {/* Main Content with top padding for fixed header */}
         <main className="pt-20 lg:pt-24">
         <Routes>
@@ -217,30 +331,32 @@ function App() {
           <Route path="/agriculture" element={<Agriculture />} />
           <Route path="/panchayat" element={<Panchayat />} />
           <Route path="/transport" element={<Transport />} />
-            <Route path="/transport-dashboard" element={<TransportDashboard />} />
-            <Route path="/transport-admin" element={<TransportAdminPanel />} />
+          <Route path="/transport-dashboard" element={<TransportDashboard />} />
+          <Route path="/transport-admin" element={<TransportAdminPanel />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/news" element={<News />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/optional" element={<Optional />} />
           <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/ration-card-status" element={<RationCardStatus />} />
-            <Route path="/mandi-bhav" element={<MandiBhav />} />
-            <Route path="/rozgar-kendra" element={<RozgarKendra />} />
-            <Route path="/audio-bulletin" element={<AudioBulletin />} />
-            <Route path="/blood-directory" element={<BloodDirectory />} />
-            <Route path="/village-polls" element={<VillagePolls />} />
-            <Route path="/grievance-box" element={<GrievanceBox />} />
-            <Route path="/village-assistant" element={<VillageAssistant />} />
-            <Route path="/scholarship-center" element={<ScholarshipCenter />} />
-            <Route path="/local-ads" element={<LocalAds />} />
-            <Route path="/digital-services" element={<DigitalServicesPanel />} />
-            <Route path="/premium-pdfs" element={<PremiumPDFSection />} />
-            <Route path="/job-board" element={<JobBoard />} />
-            <Route path="/gram-videos" element={<GramVideos />} />
+          <Route path="/ration-card-status" element={<RationCardStatus />} />
+          <Route path="/mandi-bhav" element={<MandiBhav />} />
+          <Route path="/rozgar-kendra" element={<RozgarKendra />} />
+          <Route path="/audio-bulletin" element={<AudioBulletin />} />
+          <Route path="/blood-directory" element={<BloodDirectory />} />
+          <Route path="/village-polls" element={<VillagePolls />} />
+          <Route path="/grievance-box" element={<GrievanceBox />} />
+          <Route path="/village-assistant" element={<VillageAssistant />} />
+          <Route path="/scholarship-center" element={<ScholarshipCenter />} />
+          <Route path="/local-ads" element={<LocalAds />} />
+          <Route path="/digital-services" element={<DigitalServicesPanel />} />
+          <Route path="/premium-pdfs" element={<PremiumPDFSection />} />
+          <Route path="/job-board" element={<JobBoard />} />
+          <Route path="/gram-videos" element={<GramVideos />} />
+          {/* Catch-all route for unknown paths */}
+          <Route path="*" element={<Home />} />
         </Routes>
         </main>
-        
+
         <Footer />
       </div>
     </Router>
