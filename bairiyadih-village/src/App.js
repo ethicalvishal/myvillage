@@ -86,7 +86,7 @@ function ModernHeader({ lang, handleLangChange }) {
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Open navigation"
-            className={`relative inline-flex items-center justify-center rounded-full border-4 shadow-2xl transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-green-300 bg-white hover:bg-yellow-100 active:scale-95 hover:scale-110 hover:shadow-[0_8px_32px_0_rgba(255,152,0,0.25),0_2px_16px_0_#43a04755] hover:border-orange-400`}
+            className={`relative inline-flex items-center justify-center rounded-full border-4 shadow-2xl transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-green-300 bg-white hover:bg-yellow-100 active:scale-95 hover:scale-110 hover:shadow-[0_8px_32px_0_rgba(255,152,0,0.25),0_2px_16px_0_#43a04755] hover:border-orange-400 md:hidden ml-2`}
             style={{ width: 40, height: 40, boxShadow: '0 4px 24px 0 #43a04733' }}
             aria-controls="mobile-menu"
             aria-expanded={menuOpen}
@@ -181,15 +181,17 @@ function ModernHeader({ lang, handleLangChange }) {
         {/* Right: Language Buttons (desktop: both, mobile: toggle) */}
         <div className="ml-auto flex-shrink-0 md:mr-6">
           {/* Mobile: single toggle button */}
-          <button
-            onClick={() => handleLangChange(lang === 'hi' ? 'en' : 'hi')}
-            className={`flex items-center gap-2 rounded-lg font-semibold border-2 border-green-600 shadow-md bg-white transition-all duration-200 focus-visible:ring-2 focus-visible:ring-green-400 text-black hover:bg-yellow-100 hover:border-orange-400 hover:scale-105
-              ${lang === 'en' ? 'px-3 py-1.5 text-xs md:hidden' : 'px-4 py-2 text-sm md:hidden'}`}
-            aria-label="Switch language"
-          >
-            <svg className="w-5 h-5 text-green-700" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20" /></svg>
-            <span className="text-black">{lang === 'hi' ? 'हिन्दी' : 'English'}</span>
-          </button>
+          <div className="pr-3 md:hidden">
+            <button
+              onClick={() => handleLangChange(lang === 'hi' ? 'en' : 'hi')}
+              className="relative flex items-center gap-2 rounded-full border border-gray-200 shadow-lg bg-gradient-to-r from-orange-100 via-yellow-50 to-orange-200 px-5 py-2 mr-0 pr-2 md:hidden hover:bg-orange-50 transition-all duration-200"
+              aria-label="Switch language"
+            >
+              <span className="absolute left-2 top-1/2 -translate-y-1/2 text-xl opacity-20 pointer-events-none select-none">🪔</span>
+              <svg className="w-5 h-5 text-green-700" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" fill="none"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20" /></svg>
+              <span className="text-black">{lang === 'hi' ? 'English' : 'हिन्दी'}</span>
+            </button>
+          </div>
           {/* Desktop: both buttons grouped together (modern pill toggle) */}
           <div className="hidden md:flex bg-white/90 rounded-full border-2 border-green-400 shadow-md gap-0 p-1 items-center">
             <button
@@ -313,7 +315,7 @@ function App() {
   };
 
   return (
-    <Router basename="/myvillage">
+    <Router>
       <ScrollToTop />
       <div className="min-h-screen relative">
         <ModernBackground />
