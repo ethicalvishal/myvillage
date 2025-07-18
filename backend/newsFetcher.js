@@ -43,7 +43,7 @@ const SOURCES = [
   },
   {
     name: 'GNews',
-    url: `https://gnews.io/api/v4/search?q=${encodeURIComponent(KEYWORDS.join(' OR '))}&lang=hi,en&country=in&token=${process.env.GNEWS_API_KEY}`,
+    url: `https://gnews.io/api/v4/search?q=${encodeURIComponent(KEYWORDS.join(' OR '))}&lang=hi,en&country=in&token=${process.env.GNEWS_KEY || 'ad7984d82fa8f61942c431ba8691bd09'}`,
     map: (item) => ({
       id: item.url,
       title: item.title,

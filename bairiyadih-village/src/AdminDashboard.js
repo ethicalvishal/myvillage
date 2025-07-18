@@ -134,6 +134,7 @@ function AdminDashboard() {
   
   // UI state
   const [activeModule, setActiveModule] = useState('dashboard');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   
   // Data state
   const [news, setNews] = useState([]);
@@ -161,7 +162,7 @@ function AdminDashboard() {
   // Dialog states
   const [showConfirm, setShowConfirm] = useState(false);
 
-  // Traditional Indian sidebar modules with cultural icons
+  // Modern responsive sidebar modules
   const modules = [
     { id: 'dashboard', icon: '🏛️', label: lang === 'hi' ? 'प्रशासन केंद्र' : 'Admin Center' },
     { id: 'news', icon: '📰', label: lang === 'hi' ? 'समाचार प्रबंधन' : 'News Management' },
@@ -170,6 +171,10 @@ function AdminDashboard() {
     { id: 'events', icon: '📅', label: lang === 'hi' ? 'कार्यक्रम प्रबंधन' : 'Event Management' },
     { id: 'profiles', icon: '👥', label: lang === 'hi' ? 'लोगों का प्रोफाइल' : 'People Profiles' },
     { id: 'feedback', icon: '📩', label: lang === 'hi' ? 'जनता की राय' : 'Public Feedback' },
+    { id: 'videos', icon: '🎥', label: lang === 'hi' ? 'वीडियो प्रबंधन' : 'Video Management' },
+    { id: 'live', icon: '🔴', label: lang === 'hi' ? 'लाइव सेशन' : 'Live Sessions' },
+    { id: 'users', icon: '🧑‍💼', label: lang === 'hi' ? 'यूज़र प्रबंधन' : 'User Management' },
+    { id: 'analytics', icon: '📊', label: lang === 'hi' ? 'एनालिटिक्स' : 'Analytics' },
     { id: 'settings', icon: '⚙️', label: lang === 'hi' ? 'सिस्टम सेटिंग्स' : 'System Settings' }
   ];
 
@@ -328,344 +333,73 @@ function AdminDashboard() {
     }
   };
 
-  // Main dashboard layout with desi styling
   if (!isAuthenticated) {
-    return <AdminLogin onLogin={handleLogin} adminPassword={adminPassword} setAdminPassword={setAdminPassword} lang={lang} />;
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-orange-50 to-yellow-50">
+        <AdminLogin onLogin={() => setIsAuthenticated(true)} adminPassword={adminPassword} setAdminPassword={setAdminPassword} lang={lang} />
+      </div>
+    );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-red-50 relative overflow-hidden">
-      {/* Traditional background pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ff6b35' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }}></div>
-      </div>
-
-      <div className="flex relative z-10">
-        {/* Traditional Indian Sidebar */}
-        <aside className="w-64 bg-gradient-to-b from-orange-600 to-red-600 shadow-2xl min-h-screen relative">
-          {/* Traditional border decoration */}
-          <div className="absolute inset-0 border-r-4 border-orange-400"></div>
-          
-          {/* Sidebar header with traditional design */}
-          <div className="p-6 border-b-2 border-orange-400">
-            <div className="text-center">
-              <span className="text-4xl mb-2 block">🏛️</span>
-              <h2 className="text-xl font-bold text-white mb-1">
-                {lang === 'hi' ? 'ग्राम प्रशासन' : 'Village Admin'}
-              </h2>
-              <p className="text-orange-200 text-sm">
-                {lang === 'hi' ? 'बैरियाडीह गाँव' : 'Bairiyadih Village'}
-              </p>
-            </div>
-          </div>
-
-          {/* Navigation with desi styling */}
-          <nav className="p-4 space-y-3">
-            {modules.map((module) => (
-              <DesiSidebarIcon
-                key={module.id}
-                icon={module.icon}
-                label={module.label}
-                active={activeModule === module.id}
-                onClick={() => setActiveModule(module.id)}
-              />
-            ))}
-          </nav>
-
-          {/* Traditional footer */}
-          <div className="absolute bottom-0 left-0 right-0 p-4 border-t-2 border-orange-400">
-            <div className="text-center">
-              <span className="text-2xl mb-2 block">🕉️</span>
-              <p className="text-orange-200 text-xs">
-                {lang === 'hi' ? 'सेवा परमो धर्मः' : 'Service is Supreme Duty'}
-              </p>
-            </div>
-          </div>
-        </aside>
-
-        {/* Main content area with desi styling */}
-        <main className="flex-1 p-8 overflow-y-auto">
-          {/* Traditional Indian Header */}
-          <DesiHeader 
-            title={lang === 'hi' ? 'ग्राम प्रशासन केंद्र' : 'Village Administration Center'}
-            subtitle={lang === 'hi' ? 'बैरियाडीह गाँव का डिजिटल प्रबंधन' : 'Digital Management of Bairiyadih Village'}
-            icon="🏛️"
-          />
-
-          {/* Main content with traditional borders */}
-          <DesiBorder variant="default">
-            {activeModule === 'dashboard' && (
-              <DashboardOverview 
-                lang={lang}
-                setShowForm={setShowForm}
-                showForm={showForm}
-                setActiveModule={setActiveModule}
-              />
-            )}
-            {activeModule === 'news' && (
-              <NewsManager 
-                news={news} 
-                onRefresh={loadModuleData}
-                lang={lang}
-                setShowForm={setShowForm}
-                showForm={showForm}
-                formData={formData}
-                setFormData={setFormData}
-              />
-            )}
-            {activeModule === 'gallery' && (
-              <GalleryManager 
-                gallery={gallery} 
-                onRefresh={loadModuleData}
-                lang={lang}
-                setShowForm={setShowForm}
-                showForm={showForm}
-                formData={formData}
-                setFormData={setFormData}
-                uploading={uploading}
-                setUploading={setUploading}
-              />
-            )}
-            {activeModule === 'schemes' && (
-              <SchemesManager 
-                schemes={schemes} 
-                onRefresh={loadModuleData}
-                lang={lang}
-                setShowForm={setShowForm}
-                showForm={showForm}
-                formData={formData}
-                setFormData={setFormData}
-                uploading={uploading}
-                setUploading={setUploading}
-              />
-            )}
-            {activeModule === 'events' && (
-              <EventsManager 
-                events={events} 
-                onRefresh={loadModuleData}
-                lang={lang}
-                setShowForm={setShowForm}
-                showForm={showForm}
-                formData={formData}
-                setFormData={setFormData}
-              />
-            )}
-            {activeModule === 'profiles' && (
-              <ProfilesManager 
-                profiles={profiles} 
-                onRefresh={loadModuleData}
-                lang={lang}
-                setShowForm={setShowForm}
-                showForm={showForm}
-                formData={formData}
-                setFormData={setFormData}
-                uploading={uploading}
-                setUploading={setUploading}
-              />
-            )}
-            {activeModule === 'feedback' && (
-              <FeedbackManager 
-                feedback={feedback} 
-                onRefresh={loadModuleData}
-                lang={lang}
-              />
-            )}
-            {activeModule === 'settings' && <SettingsManager lang={lang} />}
-          </DesiBorder>
-
-          {/* Approval Sections with Traditional Indian Cards */}
-          <div className="mt-8 space-y-8">
-            {/* Local Ads Approval */}
-            <DesiCard title={lang === 'hi' ? 'स्थानीय विज्ञापन अनुमोदन' : 'Local Ads Approval'} icon="📢" variant="success">
-              {actionMsg && (
-                <div className="mb-4 p-3 bg-green-100 border-2 border-green-400 rounded-xl text-green-800 font-semibold">
-                  {actionMsg}
-                </div>
-              )}
-              {loadingAds ? (
-                <div className="text-center py-8">
-                  <span className="text-3xl animate-spin">⏳</span>
-                  <p className="text-gray-600 mt-2">{lang === 'hi' ? 'लोड हो रहा है...' : 'Loading...'}</p>
-                </div>
-              ) : pendingAds.length === 0 ? (
-                <div className="text-center py-8">
-                  <span className="text-4xl mb-2">✅</span>
-                  <p className="text-gray-600">{lang === 'hi' ? 'कोई लंबित विज्ञापन नहीं।' : 'No pending ads.'}</p>
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {pendingAds.map(ad => (
-                    <div key={ad.id} className="bg-white rounded-xl shadow-lg p-6 border-2 border-green-200 hover:border-green-300 transition-all duration-300">
-                      {ad.imageUrl && (
-                        <img src={ad.imageUrl} alt="logo" className="w-20 h-20 object-cover rounded-full mb-4 border-4 border-green-200 mx-auto" />
-                      )}
-                      <div className="text-center">
-                        <div className="font-bold text-green-800 text-lg mb-2">{ad.businessName}</div>
-                        <div className="text-sm text-gray-700 mb-2">{ad.shopType}</div>
-                        <div className="text-xs text-gray-500 mb-3">{ad.description}</div>
-                        <div className="text-xs text-green-700 mb-1">
-                          <span className="font-semibold">{lang === 'hi' ? 'मालिक:' : 'Owner:'}</span> {ad.ownerName}
-                        </div>
-                        <div className="text-xs text-green-700 mb-3">
-                          <span className="font-semibold">{lang === 'hi' ? 'फोन:' : 'Phone:'}</span> {ad.phone}
-                        </div>
-                      {ad.paymentProofUrl && (
-                          <a href={ad.paymentProofUrl} target="_blank" rel="noopener noreferrer" 
-                             className="inline-block bg-blue-100 text-blue-700 px-3 py-1 rounded-lg text-xs mb-3 hover:bg-blue-200 transition-colors">
-                            {lang === 'hi' ? 'भुगतान स्क्रीनशॉट देखें' : 'View Payment Screenshot'}
-                        </a>
-                      )}
-                        <div className="flex gap-3 justify-center">
-                        <button
-                          onClick={() => handleAdAction(ad.id, 'approved')}
-                            className="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-6 py-2 rounded-xl hover:from-green-600 hover:to-emerald-600 transition-all duration-300 transform hover:scale-105 font-semibold shadow-lg"
-                        >
-                            {lang === 'hi' ? 'स्वीकृत करें' : 'Approve'}
-                        </button>
-                        <button
-                          onClick={() => handleAdAction(ad.id, 'rejected')}
-                            className="bg-gradient-to-r from-red-500 to-pink-500 text-white px-6 py-2 rounded-xl hover:from-red-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-105 font-semibold shadow-lg"
-                        >
-                            {lang === 'hi' ? 'अस्वीकृत करें' : 'Reject'}
-                        </button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </DesiCard>
-
-            {/* Digital Services Approval */}
-            <DesiCard title={lang === 'hi' ? 'डिजिटल सेवा अनुरोध अनुमोदन' : 'Digital Service Requests Approval'} icon="💻" variant="info">
-              {serviceMsg && (
-                <div className="mb-4 p-3 bg-blue-100 border-2 border-blue-400 rounded-xl text-blue-800 font-semibold">
-                  {serviceMsg}
-                </div>
-              )}
-              {loadingServices ? (
-                <div className="text-center py-8">
-                  <span className="text-3xl animate-spin">⏳</span>
-                  <p className="text-gray-600 mt-2">{lang === 'hi' ? 'लोड हो रहा है...' : 'Loading...'}</p>
-                </div>
-              ) : pendingServices.length === 0 ? (
-                <div className="text-center py-8">
-                  <span className="text-4xl mb-2">✅</span>
-                  <p className="text-gray-600">{lang === 'hi' ? 'कोई लंबित सेवा अनुरोध नहीं।' : 'No pending service requests.'}</p>
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {pendingServices.map(req => (
-                    <div key={req.id} className="bg-white rounded-xl shadow-lg p-6 border-2 border-blue-200 hover:border-blue-300 transition-all duration-300">
-                      <div className="text-center">
-                        <div className="font-bold text-blue-800 text-lg mb-2">{req.serviceType}</div>
-                        <div className="text-sm text-gray-700 mb-3">{req.details}</div>
-                        <div className="text-xs text-blue-700 mb-1">
-                          <span className="font-semibold">{lang === 'hi' ? 'नाम:' : 'Name:'}</span> {req.userName}
-                        </div>
-                        <div className="text-xs text-blue-700 mb-3">
-                          <span className="font-semibold">{lang === 'hi' ? 'फोन:' : 'Phone:'}</span> {req.phone}
-                        </div>
-                      {req.paymentProofUrl && (
-                          <a href={req.paymentProofUrl} target="_blank" rel="noopener noreferrer" 
-                             className="inline-block bg-blue-100 text-blue-700 px-3 py-1 rounded-lg text-xs mb-3 hover:bg-blue-200 transition-colors">
-                            {lang === 'hi' ? 'भुगतान स्क्रीनशॉट देखें' : 'View Payment Screenshot'}
-                        </a>
-                      )}
-                        <div className="flex gap-3 justify-center">
-                        <button
-                          onClick={() => handleServiceAction(req.id, 'approved')}
-                            className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-6 py-2 rounded-xl hover:from-blue-600 hover:to-indigo-600 transition-all duration-300 transform hover:scale-105 font-semibold shadow-lg"
-                        >
-                            {lang === 'hi' ? 'स्वीकृत करें' : 'Approve'}
-                        </button>
-                        <button
-                          onClick={() => handleServiceAction(req.id, 'rejected')}
-                            className="bg-gradient-to-r from-red-500 to-pink-500 text-white px-6 py-2 rounded-xl hover:from-red-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-105 font-semibold shadow-lg"
-                        >
-                            {lang === 'hi' ? 'अस्वीकृत करें' : 'Reject'}
-                        </button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </DesiCard>
-
-            {/* Premium PDF Purchases Approval */}
-            <DesiCard title={lang === 'hi' ? 'प्रीमियम PDF खरीद अनुमोदन' : 'Premium PDF Purchases Approval'} icon="📄" variant="warning">
-              {pdfPurchaseMsg && (
-                <div className="mb-4 p-3 bg-yellow-100 border-2 border-yellow-400 rounded-xl text-yellow-800 font-semibold">
-                  {pdfPurchaseMsg}
-                </div>
-              )}
-              {loadingPDFPurchases ? (
-                <div className="text-center py-8">
-                  <span className="text-3xl animate-spin">⏳</span>
-                  <p className="text-gray-600 mt-2">{lang === 'hi' ? 'लोड हो रहा है...' : 'Loading...'}</p>
-                </div>
-              ) : pendingPDFPurchases.length === 0 ? (
-                <div className="text-center py-8">
-                  <span className="text-4xl mb-2">✅</span>
-                  <p className="text-gray-600">{lang === 'hi' ? 'कोई लंबित खरीद नहीं।' : 'No pending purchases.'}</p>
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {pendingPDFPurchases.map(p => (
-                    <div key={p.id} className="bg-white rounded-xl shadow-lg p-6 border-2 border-yellow-200 hover:border-yellow-300 transition-all duration-300">
-                      <div className="text-center">
-                        <div className="font-bold text-yellow-800 text-lg mb-2">{pdfsMap[p.pdfId]?.title || 'PDF'}</div>
-                        <div className="text-xs text-yellow-700 mb-1">
-                          <span className="font-semibold">{lang === 'hi' ? 'नाम:' : 'Name:'}</span> {p.name}
-                        </div>
-                        <div className="text-xs text-yellow-700 mb-3">
-                          <span className="font-semibold">{lang === 'hi' ? 'फोन:' : 'Phone:'}</span> {p.phone}
-                        </div>
-                      {p.paymentProofUrl && (
-                          <a href={p.paymentProofUrl} target="_blank" rel="noopener noreferrer" 
-                             className="inline-block bg-blue-100 text-blue-700 px-3 py-1 rounded-lg text-xs mb-3 hover:bg-blue-200 transition-colors">
-                            {lang === 'hi' ? 'भुगतान स्क्रीनशॉट देखें' : 'View Payment Screenshot'}
-                        </a>
-                      )}
-                        <div className="flex gap-3 justify-center">
-                        <button
-                          onClick={() => handlePDFPurchaseAction(p.id, 'approved')}
-                            className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white px-6 py-2 rounded-xl hover:from-yellow-600 hover:to-orange-600 transition-all duration-300 transform hover:scale-105 font-semibold shadow-lg"
-                        >
-                            {lang === 'hi' ? 'स्वीकृत करें' : 'Approve'}
-                        </button>
-                        <button
-                          onClick={() => handlePDFPurchaseAction(p.id, 'rejected')}
-                            className="bg-gradient-to-r from-red-500 to-pink-500 text-white px-6 py-2 rounded-xl hover:from-red-600 hover:to-pink-600 transition-all duration-300 transform hover:scale-105 font-semibold shadow-lg"
-                        >
-                            {lang === 'hi' ? 'अस्वीकृत करें' : 'Reject'}
-                        </button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </DesiCard>
-          </div>
+    <div className="flex h-screen bg-gray-100">
+      {/* Sidebar */}
+      <aside className={`fixed z-30 inset-y-0 left-0 w-64 transition duration-300 transform bg-gradient-to-b from-orange-200 via-yellow-100 to-green-100 border-r-4 border-orange-400 shadow-2xl min-h-screen flex flex-col
+        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 md:static md:inset-0 overflow-y-auto max-h-screen`}>
+        <div className="flex items-center justify-center py-6 border-b-2 border-orange-300">
+          <span className="text-4xl">🪔</span>
+          <span className="ml-2 font-extrabold text-orange-700 text-xl">ग्राम प्रशासन</span>
+        </div>
+        <nav className="flex-1 p-4 space-y-2">
+          {modules.map(mod => (
+            <button
+              key={mod.id}
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all duration-200
+                ${activeModule === mod.id ? 'bg-gradient-to-r from-orange-400 to-yellow-300 text-white shadow-lg scale-105' : 'hover:bg-orange-100 text-orange-800'}`}
+              onClick={() => { setActiveModule(mod.id); setSidebarOpen(false); }}
+            >
+              <span className="text-2xl">{mod.icon}</span>
+              <span>{mod.label}</span>
+              {activeModule === mod.id && <span className="ml-auto text-lg animate-bounce">🌸</span>}
+            </button>
+          ))}
+        </nav>
+        <div className="p-4 border-t-2 border-orange-300 text-center text-orange-600 text-xs">
+          सेवा परमो धर्मः <span className="text-lg">🕉️</span>
+        </div>
+      </aside>
+      {/* Overlay for mobile */}
+      {sidebarOpen && <div className="fixed inset-0 bg-black opacity-30 z-20 md:hidden" onClick={() => setSidebarOpen(false)}></div>}
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col">
+        {/* Topbar */}
+        <header className="sticky top-0 z-20 flex items-center justify-between bg-gradient-to-r from-orange-100 via-yellow-50 to-green-100 shadow-lg px-4 py-2 w-full border-b-4 border-orange-400">
+          <button className="md:hidden text-2xl" onClick={() => setSidebarOpen(true)}>☰</button>
+          <span className="font-extrabold text-2xl text-orange-700 flex items-center gap-2">
+            <span className="text-3xl">🏛️</span>
+            Admin Dashboard
+            <span className="text-2xl animate-bounce">🌺</span>
+          </span>
+          <button className="bg-gradient-to-r from-red-500 to-orange-500 text-white px-4 py-2 rounded shadow hover:from-red-600 hover:to-orange-600 transition font-bold">
+            Logout
+          </button>
+        </header>
+        <main className="flex-1 overflow-y-auto p-4">
+          {activeModule === 'dashboard' && <DashboardOverview lang={lang} setShowForm={setShowForm} showForm={showForm} setActiveModule={setActiveModule} />}
+          {activeModule === 'news' && <NewsManager news={news} onRefresh={loadModuleData} lang={lang} setShowForm={setShowForm} showForm={showForm} formData={formData} setFormData={setFormData} />}
+          {activeModule === 'gallery' && <GalleryManager gallery={gallery} onRefresh={loadModuleData} lang={lang} setShowForm={setShowForm} showForm={showForm} formData={formData} setFormData={setFormData} uploading={uploading} setUploading={setUploading} />}
+          {activeModule === 'schemes' && <SchemesManager schemes={schemes} onRefresh={loadModuleData} lang={lang} setShowForm={setShowForm} showForm={showForm} formData={formData} setFormData={setFormData} uploading={uploading} setUploading={setUploading} />}
+          {activeModule === 'events' && <EventsManager events={events} onRefresh={loadModuleData} lang={lang} setShowForm={setShowForm} showForm={showForm} formData={formData} setFormData={setFormData} />}
+          {activeModule === 'profiles' && <ProfilesManager profiles={profiles} onRefresh={loadModuleData} lang={lang} setShowForm={setShowForm} showForm={showForm} formData={formData} setFormData={setFormData} uploading={uploading} setUploading={setUploading} />}
+          {activeModule === 'feedback' && <FeedbackManager feedback={feedback} onRefresh={loadModuleData} lang={lang} />}
+          {/* Placeholders for new modules */}
+          {activeModule === 'videos' && <div>Video Management (Coming Soon)</div>}
+          {activeModule === 'live' && <div>Live Session Management (Coming Soon)</div>}
+          {activeModule === 'users' && <div>User Management (Coming Soon)</div>}
+          {activeModule === 'analytics' && <div>Analytics/Quick Stats (Coming Soon)</div>}
+          {activeModule === 'settings' && <SettingsManager lang={lang} />}
         </main>
       </div>
-
-      <ConfirmDialog
-        open={showConfirm}
-        onConfirm={() => {
-          // Handle delete confirmation
-          setShowConfirm(false);
-        }}
-        onCancel={() => setShowConfirm(false)}
-        title={lang === 'hi' ? 'क्या आप वाकई हटाना चाहते हैं?' : 'Are you sure you want to delete?'}
-        message={lang === 'hi' ? 'यह कार्रवाई पूर्ववत नहीं की जा सकती।' : 'This action cannot be undone.'}
-        confirmText={lang === 'hi' ? 'हटाएं' : 'Delete'}
-        cancelText={lang === 'hi' ? 'रद्द करें' : 'Cancel'}
-      />
     </div>
   );
 }
@@ -1620,17 +1354,98 @@ function FeedbackManager({ feedback, onRefresh, lang }) {
 }
 
 function SettingsManager({ lang }) {
+  const [language, setLanguage] = React.useState(lang);
+  const [darkMode, setDarkMode] = React.useState(false);
+  const [showLabels, setShowLabels] = React.useState(true);
+  const [festive, setFestive] = React.useState(true);
+
+  // Language toggle handler
+  function handleLangChange(lng) {
+    setLanguage(lng);
+    if (window.i18n) window.i18n.changeLanguage(lng);
+  }
+
+  // Theme toggle handler
+  React.useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  }, [darkMode]);
+
+  // Module list for display
+  const moduleList = [
+    { id: 'dashboard', hi: 'प्रशासन केंद्र', en: 'Admin Center', desc: 'Dashboard overview and quick stats.' },
+    { id: 'news', hi: 'समाचार प्रबंधन', en: 'News Management', desc: 'Manage village news and updates.' },
+    { id: 'gallery', hi: 'तस्वीर प्रबंधन', en: 'Gallery Management', desc: 'Manage and organize photo gallery.' },
+    { id: 'schemes', hi: 'सरकारी योजनाएं', en: 'Government Schemes', desc: 'Manage government schemes and info.' },
+    { id: 'events', hi: 'कार्यक्रम प्रबंधन', en: 'Event Management', desc: 'Manage village events and programs.' },
+    { id: 'profiles', hi: 'लोगों का प्रोफाइल', en: 'People Profiles', desc: 'Manage villagers profiles.' },
+    { id: 'feedback', hi: 'जनता की राय', en: 'Public Feedback', desc: 'View and respond to feedback.' },
+    { id: 'videos', hi: 'वीडियो प्रबंधन', en: 'Video Management', desc: 'Approve, edit, and manage videos.' },
+    { id: 'live', hi: 'लाइव सेशन', en: 'Live Sessions', desc: 'Manage and approve live sessions.' },
+    { id: 'users', hi: 'यूज़र प्रबंधन', en: 'User Management', desc: 'Manage user accounts and permissions.' },
+    { id: 'analytics', hi: 'एनालिटिक्स', en: 'Analytics', desc: 'View site analytics and stats.' },
+    { id: 'settings', hi: 'सिस्टम सेटिंग्स', en: 'System Settings', desc: 'Configure dashboard settings.' }
+  ];
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold text-gray-800">
-          {lang === 'hi' ? 'सेटिंग्स' : 'Settings'}
+          {language === 'hi' ? 'सेटिंग्स' : 'Settings'}
         </h2>
       </div>
+      <div className="bg-white rounded-xl shadow-sm p-6 space-y-4">
+        {/* Language Toggle */}
+        <div className="flex items-center gap-4">
+          <span className="font-semibold text-gray-800">{language === 'hi' ? 'भाषा' : 'Language'}:</span>
+          <button
+            className={`px-4 py-1 rounded-full font-bold border-2 ${language === 'hi' ? 'bg-orange-500 text-white border-orange-500' : 'bg-white text-orange-700 border-orange-300'}`}
+            onClick={() => handleLangChange('hi')}
+          >हिन्दी</button>
+          <button
+            className={`px-4 py-1 rounded-full font-bold border-2 ${language === 'en' ? 'bg-orange-500 text-white border-orange-500' : 'bg-white text-orange-700 border-orange-300'}`}
+            onClick={() => handleLangChange('en')}
+          >English</button>
+        </div>
+        {/* Theme Toggle */}
+        <div className="flex items-center gap-4">
+          <span className="font-semibold text-gray-800">{language === 'hi' ? 'थीम' : 'Theme'}:</span>
+          <label className="flex items-center gap-2 cursor-pointer text-gray-800">
+            <input type="checkbox" checked={darkMode} onChange={e => setDarkMode(e.target.checked)} />
+            <span>{darkMode ? (language === 'hi' ? 'डार्क मोड' : 'Dark Mode') : (language === 'hi' ? 'लाइट मोड' : 'Light Mode')}</span>
+          </label>
+        </div>
+        {/* Sidebar Label Toggle */}
+        <div className="flex items-center gap-4">
+          <span className="font-semibold text-gray-800">{language === 'hi' ? 'साइडबार लेबल' : 'Sidebar Labels'}:</span>
+          <label className="flex items-center gap-2 cursor-pointer text-gray-800">
+            <input type="checkbox" checked={showLabels} onChange={e => setShowLabels(e.target.checked)} />
+            <span>{showLabels ? (language === 'hi' ? 'दिखाएँ' : 'Show') : (language === 'hi' ? 'छुपाएँ' : 'Hide')}</span>
+          </label>
+        </div>
+        {/* Festive Decorations Toggle */}
+        <div className="flex items-center gap-4">
+          <span className="font-semibold text-gray-800">{language === 'hi' ? 'फेस्टिव सजावट' : 'Festive Decorations'}:</span>
+          <label className="flex items-center gap-2 cursor-pointer text-gray-800">
+            <input type="checkbox" checked={festive} onChange={e => setFestive(e.target.checked)} />
+            <span>{festive ? (language === 'hi' ? 'सक्रिय' : 'Enabled') : (language === 'hi' ? 'निष्क्रिय' : 'Disabled')}</span>
+          </label>
+        </div>
+      </div>
+      {/* Module List Section */}
       <div className="bg-white rounded-xl shadow-sm p-6">
-        <p className="text-gray-600">
-          {lang === 'hi' ? 'सेटिंग्स मॉड्यूल यहाँ आएगा' : 'Settings module will be here'}
-        </p>
+        <h3 className="text-lg font-bold text-gray-800 mb-2">{language === 'hi' ? 'डैशबोर्ड मॉड्यूल्स' : 'Dashboard Modules'}</h3>
+        <ul className="space-y-2">
+          {moduleList.map(mod => (
+            <li key={mod.id} className="border-b pb-2">
+              <span className="font-semibold text-gray-900">{language === 'hi' ? mod.hi : mod.en}</span>
+              <span className="ml-2 text-gray-600 text-sm">{mod.desc}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

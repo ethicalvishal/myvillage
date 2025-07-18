@@ -40,18 +40,12 @@ function LoadingScreen() {
 }
 
 // Render loading screen first
-const loadingRoot = ReactDOM.createRoot(document.getElementById('root'));
-loadingRoot.render(<LoadingScreen />);
-
-// Initialize app after a short delay for better UX
-setTimeout(() => {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>
 );
-}, 1500);
 
 // Performance monitoring
 reportWebVitals(console.log);
