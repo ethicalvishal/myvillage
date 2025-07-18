@@ -342,63 +342,85 @@ function AdminDashboard() {
   }
 
   return (
-    <div className="flex h-screen bg-gray-100">
-      {/* Sidebar */}
-      <aside className={`fixed z-30 inset-y-0 left-0 w-64 transition duration-300 transform bg-gradient-to-b from-orange-200 via-yellow-100 to-green-100 border-r-4 border-orange-400 shadow-2xl min-h-screen flex flex-col
-        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 md:static md:inset-0 overflow-y-auto max-h-screen`}>
-        <div className="flex items-center justify-center py-6 border-b-2 border-orange-300">
-          <span className="text-4xl">🪔</span>
-          <span className="ml-2 font-extrabold text-orange-700 text-xl">ग्राम प्रशासन</span>
-        </div>
-        <nav className="flex-1 p-4 space-y-2">
-          {modules.map(mod => (
+    <div className="relative min-h-screen bg-gradient-to-br from-orange-50 via-yellow-50 to-green-50">
+      <div className="absolute inset-0 opacity-10 pointer-events-none select-none z-0">
+        {/* SVG pattern or festive emoji here */}
+        <svg width="100%" height="100%" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="100" cy="100" r="80" fill="#fde68a" />
+          <circle cx="100" cy="100" r="60" fill="#fca5a5" opacity="0.3" />
+          <circle cx="100" cy="100" r="40" fill="#bbf7d0" opacity="0.2" />
+        </svg>
+        <div className="absolute bottom-4 right-4 text-6xl opacity-20">🪔</div>
+      </div>
+      <div className="flex h-screen bg-gray-100">
+        {/* Sidebar */}
+        <aside className={`fixed z-30 inset-y-0 left-0 w-64 transition duration-300 transform bg-gradient-to-b from-orange-200/80 via-yellow-100/80 to-green-100/80 border-r-4 border-orange-400 shadow-2xl min-h-screen flex flex-col
+          ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 md:static md:inset-0 overflow-y-auto max-h-screen`}>
+          <div className="flex items-center justify-center py-6 border-b-2 border-orange-300">
+            <span className="text-4xl">🪔</span>
+            <span className="ml-2 font-extrabold text-orange-700 text-xl">ग्राम प्रशासन</span>
+          </div>
+          <nav className="flex-1 p-4 space-y-2">
+            {modules.map(mod => (
+              <button
+                key={mod.id}
+                className={`flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all duration-200
+                  ${activeModule === mod.id ? 'bg-gradient-to-r from-orange-400 to-yellow-300 text-white shadow-lg scale-105' : 'hover:bg-orange-100 text-orange-800'}`}
+                onClick={() => { setActiveModule(mod.id); setSidebarOpen(false); }}
+              >
+                <span className="text-2xl">{mod.icon}</span>
+                <span>{mod.label}</span>
+                {activeModule === mod.id && <span className="ml-auto text-lg animate-bounce">🌸</span>}
+              </button>
+            ))}
+          </nav>
+          <div className="p-4 border-t-2 border-orange-300 text-center text-orange-600 text-xs">
+            सेवा परमो धर्मः <span className="text-lg">🕉️</span>
+          </div>
+        </aside>
+        {/* Overlay for mobile */}
+        {sidebarOpen && <div className="fixed inset-0 bg-black opacity-30 z-20 md:hidden" onClick={() => setSidebarOpen(false)}></div>}
+        {/* Main Content */}
+        <div className="flex-1 flex flex-col">
+          {/* Topbar */}
+          <header className="sticky top-0 z-20 flex items-center justify-between bg-gradient-to-r from-orange-100/80 via-yellow-50/80 to-green-100/80 shadow-lg px-4 py-2 w-full border-b-4 border-orange-400">
             <button
-              key={mod.id}
-              className={`flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all duration-200
-                ${activeModule === mod.id ? 'bg-gradient-to-r from-orange-400 to-yellow-300 text-white shadow-lg scale-105' : 'hover:bg-orange-100 text-orange-800'}`}
-              onClick={() => { setActiveModule(mod.id); setSidebarOpen(false); }}
+              onClick={() => setSidebarOpen(true)}
+              aria-label="Open sidebar"
+              className="md:hidden ml-0 rounded-full bg-gradient-to-br from-orange-200 via-yellow-100 to-green-100 border-2 border-orange-400 shadow-lg p-2 flex items-center justify-center transition-all duration-200 hover:scale-110 hover:shadow-xl relative"
             >
-              <span className="text-2xl">{mod.icon}</span>
-              <span>{mod.label}</span>
-              {activeModule === mod.id && <span className="ml-auto text-lg animate-bounce">🌸</span>}
+              <span className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none select-none text-3xl">🪔</span>
+              <span className="relative z-10 flex flex-col gap-1">
+                <span className="block w-7 h-1 bg-orange-500 rounded-full"></span>
+                <span className="block w-7 h-1 bg-orange-500 rounded-full"></span>
+                <span className="block w-7 h-1 bg-orange-500 rounded-full"></span>
+              </span>
             </button>
-          ))}
-        </nav>
-        <div className="p-4 border-t-2 border-orange-300 text-center text-orange-600 text-xs">
-          सेवा परमो धर्मः <span className="text-lg">🕉️</span>
+            <span className="font-extrabold text-2xl text-orange-700 flex items-center gap-2">
+              <span className="text-3xl">🏛️</span>
+              Admin Dashboard
+              <span className="text-2xl animate-bounce">🌺</span>
+            </span>
+            <button className="bg-gradient-to-r from-red-500 to-orange-500 text-white px-4 py-2 rounded shadow hover:from-red-600 hover:to-orange-600 transition font-bold">
+              Logout
+            </button>
+          </header>
+          <main className="flex-1 overflow-y-auto p-4">
+            {activeModule === 'dashboard' && <DashboardOverview lang={lang} setShowForm={setShowForm} showForm={showForm} setActiveModule={setActiveModule} />}
+            {activeModule === 'news' && <NewsManager news={news} onRefresh={loadModuleData} lang={lang} setShowForm={setShowForm} showForm={showForm} formData={formData} setFormData={setFormData} />}
+            {activeModule === 'gallery' && <GalleryManager gallery={gallery} onRefresh={loadModuleData} lang={lang} setShowForm={setShowForm} showForm={showForm} formData={formData} setFormData={setFormData} uploading={uploading} setUploading={setUploading} />}
+            {activeModule === 'schemes' && <SchemesManager schemes={schemes} onRefresh={loadModuleData} lang={lang} setShowForm={setShowForm} showForm={showForm} formData={formData} setFormData={setFormData} uploading={uploading} setUploading={setUploading} />}
+            {activeModule === 'events' && <EventsManager events={events} onRefresh={loadModuleData} lang={lang} setShowForm={setShowForm} showForm={showForm} formData={formData} setFormData={setFormData} />}
+            {activeModule === 'profiles' && <ProfilesManager profiles={profiles} onRefresh={loadModuleData} lang={lang} setShowForm={setShowForm} showForm={showForm} formData={formData} setFormData={setFormData} uploading={uploading} setUploading={setUploading} />}
+            {activeModule === 'feedback' && <FeedbackManager feedback={feedback} onRefresh={loadModuleData} lang={lang} />}
+            {/* Placeholders for new modules */}
+            {activeModule === 'videos' && <div>Video Management (Coming Soon)</div>}
+            {activeModule === 'live' && <div>Live Session Management (Coming Soon)</div>}
+            {activeModule === 'users' && <div>User Management (Coming Soon)</div>}
+            {activeModule === 'analytics' && <div>Analytics/Quick Stats (Coming Soon)</div>}
+            {activeModule === 'settings' && <SettingsManager lang={lang} />}
+          </main>
         </div>
-      </aside>
-      {/* Overlay for mobile */}
-      {sidebarOpen && <div className="fixed inset-0 bg-black opacity-30 z-20 md:hidden" onClick={() => setSidebarOpen(false)}></div>}
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col">
-        {/* Topbar */}
-        <header className="sticky top-0 z-20 flex items-center justify-between bg-gradient-to-r from-orange-100 via-yellow-50 to-green-100 shadow-lg px-4 py-2 w-full border-b-4 border-orange-400">
-          <button className="md:hidden text-2xl" onClick={() => setSidebarOpen(true)}>☰</button>
-          <span className="font-extrabold text-2xl text-orange-700 flex items-center gap-2">
-            <span className="text-3xl">🏛️</span>
-            Admin Dashboard
-            <span className="text-2xl animate-bounce">🌺</span>
-          </span>
-          <button className="bg-gradient-to-r from-red-500 to-orange-500 text-white px-4 py-2 rounded shadow hover:from-red-600 hover:to-orange-600 transition font-bold">
-            Logout
-          </button>
-        </header>
-        <main className="flex-1 overflow-y-auto p-4">
-          {activeModule === 'dashboard' && <DashboardOverview lang={lang} setShowForm={setShowForm} showForm={showForm} setActiveModule={setActiveModule} />}
-          {activeModule === 'news' && <NewsManager news={news} onRefresh={loadModuleData} lang={lang} setShowForm={setShowForm} showForm={showForm} formData={formData} setFormData={setFormData} />}
-          {activeModule === 'gallery' && <GalleryManager gallery={gallery} onRefresh={loadModuleData} lang={lang} setShowForm={setShowForm} showForm={showForm} formData={formData} setFormData={setFormData} uploading={uploading} setUploading={setUploading} />}
-          {activeModule === 'schemes' && <SchemesManager schemes={schemes} onRefresh={loadModuleData} lang={lang} setShowForm={setShowForm} showForm={showForm} formData={formData} setFormData={setFormData} uploading={uploading} setUploading={setUploading} />}
-          {activeModule === 'events' && <EventsManager events={events} onRefresh={loadModuleData} lang={lang} setShowForm={setShowForm} showForm={showForm} formData={formData} setFormData={setFormData} />}
-          {activeModule === 'profiles' && <ProfilesManager profiles={profiles} onRefresh={loadModuleData} lang={lang} setShowForm={setShowForm} showForm={showForm} formData={formData} setFormData={setFormData} uploading={uploading} setUploading={setUploading} />}
-          {activeModule === 'feedback' && <FeedbackManager feedback={feedback} onRefresh={loadModuleData} lang={lang} />}
-          {/* Placeholders for new modules */}
-          {activeModule === 'videos' && <div>Video Management (Coming Soon)</div>}
-          {activeModule === 'live' && <div>Live Session Management (Coming Soon)</div>}
-          {activeModule === 'users' && <div>User Management (Coming Soon)</div>}
-          {activeModule === 'analytics' && <div>Analytics/Quick Stats (Coming Soon)</div>}
-          {activeModule === 'settings' && <SettingsManager lang={lang} />}
-        </main>
       </div>
     </div>
   );
