@@ -20,6 +20,7 @@ function Contact() {
   const [password, setPassword] = useState('');
   const [showConfirm, setShowConfirm] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetchContacts();
@@ -42,29 +43,30 @@ function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!name.trim() || !email.trim() || !message.trim()) return;
-
+    setLoading(true);
+    alert(lang === 'hi' ? 'संदेश भेज दिया गया!' : 'Message sent!');
+    setName('');
+    setEmail('');
+    setPhone('');
+    setMessage('');
+    setShowForm(false);
     try {
       await fetch('https://bairiyadih-backend.onrender.com/api/input', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           type: 'contact',
-        name,
-        email,
-        phone,
-        message,
-        language: lang
+          name,
+          email,
+          phone,
+          message,
+          language: lang
         })
       });
-
-      setName('');
-      setEmail('');
-      setPhone('');
-      setMessage('');
-      setShowForm(false);
-      alert(lang === 'hi' ? 'संदेश भेज दिया गया!' : 'Message sent!');
     } catch (error) {
       alert(lang === 'hi' ? 'भेजने में त्रुटि' : 'Error sending message');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -338,8 +340,9 @@ function Contact() {
                   <button
                     type="submit"
                     className="w-full bg-green-600 text-white py-3 px-6 rounded-lg hover:bg-green-700 transition-colors duration-200 font-medium"
+                    disabled={loading}
                   >
-                    {lang === 'hi' ? 'संदेश भेजें' : 'Send Message'}
+                    {loading ? (lang === 'hi' ? 'भेजा जा रहा है...' : 'Sending...') : (lang === 'hi' ? 'भेजें' : 'Send')}
                   </button>
                 </form>
               )}

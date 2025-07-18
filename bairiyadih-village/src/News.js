@@ -47,6 +47,11 @@ function News() {
   const [showPublicForm, setShowPublicForm] = useState(false);
   const navigate = useNavigate();
 
+  // Set API base URL depending on environment
+  const API_BASE_URL = window.location.hostname.includes('localhost')
+    ? ''
+    : 'https://myvillage-backend.onrender.com';
+
   useEffect(() => {
     setIsAdmin(window.location.search.includes('admin=1'));
   }, []);
@@ -54,7 +59,7 @@ function News() {
   useEffect(() => {
     setLoading(true);
     setError(null);
-    fetch(`/api/news?filter=${filter}`)
+    fetch(`${API_BASE_URL}/api/news?filter=${filter}`)
       .then(res => res.json())
       .then(data => {
         setNews(data.news || []);
@@ -72,7 +77,7 @@ function News() {
     e.preventDefault();
     setAdminMsg(null);
     try {
-      const res = await fetch('/api/news', {
+      const res = await fetch(`${API_BASE_URL}/api/news`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -90,7 +95,7 @@ function News() {
   const handlePin = async id => {
     setAdminMsg(null);
     try {
-      const res = await fetch(`/api/news/pin/${id}`, { method: 'PUT' });
+      const res = await fetch(`${API_BASE_URL}/api/news/pin/${id}`, { method: 'PUT' });
       if (!res.ok) throw new Error('Failed to pin');
       setAdminMsg({ type: 'success', text: lang === 'hi' ? 'पिन कर दिया गया!' : 'Pinned!' });
     } catch {
@@ -100,7 +105,7 @@ function News() {
   const handleDelete = async id => {
     setAdminMsg(null);
     try {
-      const res = await fetch(`/api/news/${id}`, { method: 'DELETE' });
+      const res = await fetch(`${API_BASE_URL}/api/news/${id}`, { method: 'DELETE' });
       if (!res.ok) throw new Error('Failed to delete');
       setAdminMsg({ type: 'success', text: lang === 'hi' ? 'हटा दिया गया!' : 'Deleted!' });
     } catch {

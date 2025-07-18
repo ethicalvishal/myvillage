@@ -86,47 +86,17 @@ function ModernHeader({ lang, handleLangChange }) {
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Open navigation"
-            className={`relative inline-flex items-center justify-center rounded-full border-4 shadow-2xl transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-green-300 bg-white hover:bg-yellow-100 active:scale-95 hover:scale-110 hover:shadow-[0_8px_32px_0_rgba(255,152,0,0.25),0_2px_16px_0_#43a04755] hover:border-orange-400 md:hidden ml-2`}
-            style={{ width: 40, height: 40, boxShadow: '0 4px 24px 0 #43a04733' }}
-            aria-controls="mobile-menu"
-            aria-expanded={menuOpen}
+            className="md:hidden ml-2 flex items-center justify-center rounded-full bg-gradient-to-br from-green-200 via-yellow-100 to-orange-100 shadow-lg p-1 relative"
+            style={{ width: 48, height: 48 }}
           >
-            {/* Animated gradient border */}
-            <span className="absolute inset-0 rounded-full pointer-events-none z-0"
-              style={{
-                background: 'conic-gradient(from 0deg, #ff9800, #fff, #43a047, #ff9800)',
-                padding: 2,
-                WebkitMaskImage: 'radial-gradient(circle, white 90%, transparent 100%)'
-              }}
-            ></span>
-            {/* Animated chakra/rangoli motif */}
-            <span className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-40 animate-spin-slow">
-              <svg width="32" height="32" viewBox="0 0 36 36">
-                <circle cx="18" cy="18" r="15" stroke="#ff9800" strokeWidth="2" fill="none" />
-                <circle cx="18" cy="18" r="9" stroke="#43a047" strokeWidth="1.5" fill="none" />
-                <circle cx="18" cy="18" r="3" fill="#43a047" />
-              </svg>
+            {/* Orange ring */}
+            <span className="absolute inset-0 rounded-full border-4 border-orange-500" style={{ boxSizing: 'border-box', pointerEvents: 'none' }}></span>
+            {/* Center icon (🏡) */}
+            <span className="relative z-10 flex flex-col gap-1 items-center justify-center">
+              <span className="block w-6 h-1.5 bg-green-700 rounded-full shadow"></span>
+              <span className="block w-6 h-1.5 bg-green-700 rounded-full shadow"></span>
+              <span className="block w-6 h-1.5 bg-green-700 rounded-full shadow"></span>
             </span>
-            {/* Triple line hamburger */}
-            <svg className="h-5 w-5 text-green-900 relative z-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              {menuOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <>
-                  <rect x="4" y="7" width="16" height="2.2" rx="1" fill="currentColor" />
-                  <rect x="4" y="11" width="16" height="2.2" rx="1" fill="currentColor" />
-                  <rect x="4" y="15" width="16" height="2.2" rx="1" fill="currentColor" />
-                </>
-              )}
-            </svg>
-            <style>{`
-              .animate-spin-slow {
-                animation: spin 3s linear infinite;
-              }
-              @keyframes spin {
-                100% { transform: rotate(360deg); }
-              }
-            `}</style>
           </button>
         </div>
         {/* Left: Logo and Village Name */}

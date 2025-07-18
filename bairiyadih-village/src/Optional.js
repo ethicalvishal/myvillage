@@ -31,6 +31,7 @@ function Optional() {
   const [form, setForm] = useState({});
   const [showConfirm, setShowConfirm] = useState(false);
   const [pendingDelete, setPendingDelete] = useState({ key: '', id: '' });
+  const [loading, setLoading] = useState({});
 
   useEffect(() => {
     features.forEach(f => {
@@ -49,17 +50,25 @@ function Optional() {
     e.preventDefault();
     const entry = form[key];
     if (!entry || !entry.text) return;
-    await fetch('https://bairiyadih-backend.onrender.com/api/input', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        type: key,
-        ...entry,
-        lang,
-        section: 'optional'
-      })
-    });
+    setLoading(l => ({ ...l, [key]: true }));
+    alert(lang === 'hi' ? 'संदेश भेज दिया गया!' : 'Message sent!');
     setForm(f => ({ ...f, [key]: { text: '' } }));
+    try {
+      await fetch('https://bairiyadih-backend.onrender.com/api/input', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: key,
+          ...entry,
+          lang,
+          section: 'optional'
+        })
+      });
+    } catch (error) {
+      alert(lang === 'hi' ? 'भेजने में त्रुटि' : 'Error sending message');
+    } finally {
+      setLoading(l => ({ ...l, [key]: false }));
+    }
   };
 
   const handleDelete = (key, id) => {
@@ -139,7 +148,9 @@ function Optional() {
                   placeholder={lang === 'hi' ? 'जानकारी लिखें' : 'Enter info'}
                   className="border px-3 py-2 rounded-lg focus:ring-2 focus:ring-purple-300 outline-none w-full"
                 />
-                <button type="submit" className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded-lg font-semibold shadow transition">{lang === 'hi' ? 'जोड़ें' : 'Add'}</button>
+                <button type="submit" className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded-lg font-semibold shadow transition" disabled={loading[f.key]}>
+                  {loading[f.key] ? (lang === 'hi' ? 'भेजा जा रहा है...' : 'Sending...') : (lang === 'hi' ? 'जोड़ें' : 'Add')}
+                </button>
               </form>
               <ul className="space-y-2 w-full">
                 {(f.key === 'lostfound' || f.key === 'fame') ? (

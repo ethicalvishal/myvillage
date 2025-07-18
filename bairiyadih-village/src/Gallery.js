@@ -2,6 +2,9 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import DesignerCardBackground from './DesignerCardBackground';
 import { useNavigate } from 'react-router-dom';
+import { db, storage } from './firebase';
+import { collection, addDoc, getDocs, serverTimestamp, query, orderBy } from 'firebase/firestore';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 function Gallery() {
   const { i18n } = useTranslation();
@@ -17,6 +20,18 @@ function Gallery() {
   const [selectedFileName, setSelectedFileName] = React.useState('');
   const [formMsg, setFormMsg] = React.useState(null);
   const [showForm, setShowForm] = React.useState(false);
+  const [images, setImages] = React.useState([]);
+
+  React.useEffect(() => {
+    // Fetch images from Firestore
+    const fetchImages = async () => {
+      const q = query(collection(db, 'gallery'), orderBy('timestamp', 'desc'));
+      const snapshot = await getDocs(q);
+      setImages(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+    };
+    fetchImages();
+  }, []);
+
   const handleFormChange = e => {
     if (e.target.name === 'file') {
       const file = e.target.files[0];
@@ -30,11 +45,28 @@ function Gallery() {
     e.preventDefault();
     setFormMsg(null);
     try {
-      await new Promise(res => setTimeout(res, 700));
+      // Upload file to Firebase Storage
+      const file = form.file;
+      if (!file) throw new Error('No file selected');
+      const storageRef = ref(storage, `gallery-images/${Date.now()}_${file.name}`);
+      await uploadBytes(storageRef, file);
+      const imageURL = await getDownloadURL(storageRef);
+      // Save metadata to Firestore
+      await addDoc(collection(db, 'gallery'), {
+        name: form.name,
+        category: form.category,
+        caption: form.caption,
+        imageURL,
+        timestamp: serverTimestamp(),
+      });
       setFormMsg({ type: 'success', text: lang === 'hi' ? 'फोटो भेज दी गई!' : 'Photo submitted!' });
       setForm({ name: '', file: null, category: '', caption: '' });
       setSelectedFileName('');
-    } catch {
+      // Refresh images
+      const q = query(collection(db, 'gallery'), orderBy('timestamp', 'desc'));
+      const snapshot = await getDocs(q);
+      setImages(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+    } catch (err) {
       setFormMsg({ type: 'error', text: lang === 'hi' ? 'फोटो भेजने में त्रुटि!' : 'Failed to submit photo!' });
     }
   };
@@ -198,12 +230,22 @@ function Gallery() {
                 <div className="w-16 h-16 bg-gradient-to-br from-orange-400 to-yellow-400 rounded-full flex items-center justify-center mx-auto mb-3 animate-pulse-glow">
                   <span className="text-2xl">{cat.icon}</span>
                 </div>
-                <h4 className={`font-semibold text-gray-800 mb-1 ${lang === 'hi' ? 'hindi-text' : ''}`}>{lang === 'hi' ? cat.hi : cat.en}</h4>
-                <p className="text-sm text-black">{lang === 'hi' ? cat.descHi : cat.descEn}</p>
+                <div className="font-semibold text-lg text-orange-800 mb-1">{lang === 'hi' ? cat.hi : cat.en}</div>
+                <div className="text-sm text-gray-600 mb-2">{lang === 'hi' ? cat.descHi : cat.descEn}</div>
+                {/* Show images for this category */}
+                <div className="grid grid-cols-2 gap-2 mt-2">
+                  {images.filter(img => img.category === (lang === 'hi' ? cat.hi : cat.en)).map(img => (
+                    <div key={img.id} className="rounded overflow-hidden border border-orange-200">
+                      <img src={img.imageURL} alt={img.caption || ''} className="w-full h-24 object-cover" />
+                      {img.caption && <div className="text-xs text-gray-700 p-1">{img.caption}</div>}
+                      <div className="text-xs text-gray-500 px-1 pb-1">{img.name}</div>
+                    </div>
+                  ))}
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
+        </div>
         <div className="text-center mt-8 relative z-10">
           <span className="text-2xl">🖼️</span>
           <div className="h-1 w-20 bg-gradient-to-r from-orange-400 to-yellow-400 rounded-full mx-auto my-2"></div>
