@@ -153,7 +153,7 @@ function Contact() {
                   <div className="text-sm text-gray-700">
                     <div className="flex items-center gap-2 mb-1">
                       <span role="img" aria-label="phone">📞</span>
-                      <span>100 (आपातकालीन)</span>
+                      <span>{lang === 'hi' ? '100 (आपातकालीन)' : '100 (Emergency)'}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span role="img" aria-label="distance">📍</span>
@@ -172,7 +172,7 @@ function Contact() {
                   <div className="text-sm text-gray-700">
                     <div className="flex items-center gap-2 mb-1">
                       <span role="img" aria-label="phone">📞</span>
-                      <span>108 (आपातकालीन)</span>
+                      <span>{lang === 'hi' ? '108 (आपातकालीन)' : '108 (Emergency)'}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span role="img" aria-label="availability">🕐</span>
@@ -191,7 +191,7 @@ function Contact() {
                   <div className="text-sm text-gray-700">
                     <div className="flex items-center gap-2 mb-1">
                       <span role="img" aria-label="phone">📞</span>
-                      <span>101 (आपातकालीन)</span>
+                      <span>{lang === 'hi' ? '101 (आपातकालीन)' : '101 (Emergency)'}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span role="img" aria-label="distance">📍</span>
@@ -214,13 +214,13 @@ function Contact() {
                     <span role="img" aria-label="sarpanch" className="text-xl">👑</span>
                     <div>
                       <div className="font-medium text-gray-800">{lang === 'hi' ? 'सरपंच' : 'Sarpanch'}</div>
-                      <div className="text-sm text-gray-600">{lang === 'hi' ? 'श्री राम कुमार सिंह' : 'Shri Ram Kumar Singh'}</div>
+                      <div className="text-sm text-gray-600">{lang === 'hi' ? 'जानकारी उपलब्ध नहीं' : 'Not available'}</div>
                     </div>
                   </div>
                   <div className="text-sm text-gray-700">
                     <div className="flex items-center gap-2 mb-1">
                       <span role="img" aria-label="phone">📞</span>
-                      <span>98765-43210</span>
+                      <span>{lang === 'hi' ? 'जानकारी उपलब्ध नहीं' : 'Not available'}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span role="img" aria-label="office">🏛️</span>
@@ -244,25 +244,6 @@ function Contact() {
                     <div className="flex items-center gap-2">
                       <span role="img" aria-label="timing">🕐</span>
                       <span>{lang === 'hi' ? 'सोम-शुक्र: 10 AM - 4 PM' : 'Mon-Fri: 10 AM - 4 PM'}</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-white rounded-lg p-4 shadow-sm">
-                  <div className="flex items-center gap-3 mb-2">
-                    <span role="img" aria-label="school" className="text-xl">🏫</span>
-                    <div>
-                      <div className="font-medium text-gray-800">{lang === 'hi' ? 'स्कूल प्रधानाध्यापक' : 'School Principal'}</div>
-                      <div className="text-sm text-gray-600">{lang === 'hi' ? 'श्रीमती रेखा देवी' : 'Smt. Rekha Devi'}</div>
-                    </div>
-                  </div>
-                  <div className="text-sm text-gray-700">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span role="img" aria-label="phone">📞</span>
-                      <span>98765-43211</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span role="img" aria-label="school">🏫</span>
-                      <span>{lang === 'hi' ? 'प्राथमिक विद्यालय बैरियाडीह' : 'Primary School Bairiyadih'}</span>
                     </div>
                   </div>
                 </div>
@@ -456,11 +437,11 @@ function Contact() {
                   <div className="text-sm text-gray-700">
                     <div className="flex items-center gap-2 mb-1">
                       <span role="img" aria-label="phone">📞</span>
-                      <span>06252-123456</span>
+                      <span>{lang === 'hi' ? 'जानकारी उपलब्ध नहीं' : 'Not available'}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <span role="img" aria-label="location">📍</span>
-                      <span>{lang === 'hi' ? 'हरसिद्धि बाजार' : 'Harsidhi Market'}</span>
+                      <span>{lang === 'hi' ? 'हाई स्कूल और सीतल बाजार, घोघराहन के बीच' : 'Middle of the High School and Sital Bazaar, Ghoghrahan'}</span>
                     </div>
                   </div>
                 </div>

@@ -69,8 +69,8 @@ function About() {
                     <div className="text-gray-700">{i18n.language === 'hi' ? 'थाना: हरसिद्धि, जिला: पूर्वी चंपारण' : 'Thana: Harsidhi, District: East Champaran'}</div>
                   </div>
                 </div>
-                <div className="flex items-center gap-4 bg-white/90 rounded-2xl shadow-lg p-4 border-l-4 border-yellow-400 hover:scale-105 hover:shadow-2xl transition-all duration-300">
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-yellow-200 to-yellow-400 flex items-center justify-center text-3xl shadow">
+                <div className="flex items-center gap-4 bg-white/90 rounded-2xl shadow-lg p-4 border-l-4 border-blue-400 hover:scale-105 hover:shadow-2xl transition-all duration-300">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-blue-200 to-blue-400 flex items-center justify-center text-3xl shadow">
                     <span role="img" aria-label="climate">🌡️</span>
                   </div>
                   <div>
@@ -94,6 +94,15 @@ function About() {
                   <div>
                     <div className="font-bold text-lg text-blue-800 mb-1">{i18n.language === 'hi' ? 'सिंचाई' : 'Irrigation'}</div>
                     <div className="text-gray-700">{i18n.language === 'hi' ? 'बोरिंग या नदी से' : 'Boring or River'}</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4 bg-white/90 rounded-2xl shadow-lg p-4 border-l-4 border-blue-400 hover:scale-105 hover:shadow-2xl transition-all duration-300">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-blue-200 to-blue-400 flex items-center justify-center text-3xl shadow">
+                    <span role="img" aria-label="assembly">🏛️</span>
+                  </div>
+                  <div>
+                    <div className="font-bold text-lg text-blue-800 mb-1">{i18n.language === 'hi' ? 'विधान सभा' : 'Vidhan Sabha'}</div>
+                    <div className="text-gray-700">{i18n.language === 'hi' ? 'बैरियाडीह हरसिद्धि विधानसभा क्षेत्र में आता है। वर्तमान विधायक: कृष्णनंदन पासवान (हक़ी)' : 'Bairiyadih falls under Harsidhi Vidhan Sabha. Current MLA: Krishnandan Paswan (Haqi)'}</div>
                   </div>
                 </div>
               </div>

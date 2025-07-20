@@ -270,7 +270,7 @@ function Panchayat() {
 
         <DesignerCardBackground variant="default">
           <h3 className={`text-2xl font-bold mb-6 gradient-text ${i18n.language === 'hi' ? 'hindi-heading' : ''}`}>
-            {i18n.language === 'hi' ? 'ग्राम वार्ड विवरण' : 'Village Ward Details'}
+            {lang === 'hi' ? 'ग्राम वार्ड विवरण' : 'Village Ward Details'}
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[...Array(19)].slice(0, showAll ? 19 : 3).map((_, idx) => {
@@ -282,47 +282,61 @@ function Panchayat() {
                 area: "कोई डेटा उपलब्ध नहीं",
                 facilities: "कोई डेटा उपलब्ध नहीं"
               };
+              if ([1, 2, 3, 4].includes(wardNum)) details = {
+                member: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available',
+                mobile: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available',
+                families: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available',
+                area: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available',
+                facilities: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available'
+              };
               if (wardNum === 5) details = {
-                member: "श्रीमती गीता देवी",
-                mobile: "9876543218",
-                families: "50 घर",
-                area: "पंचायत भवन क्षेत्र",
-                facilities: "नया भवन निर्माण, ग्राम पुस्तकालय"
+                member: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available',
+                mobile: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available',
+                families: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available',
+                area: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available',
+                facilities: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available'
               };
               if (wardNum === 6) details = {
-                member: "श्री रमेश प्रसाद",
-                mobile: "9876543216",
-                families: "35 घर",
-                area: "मंदिर क्षेत्र",
-                facilities: "पक्की सड़क निर्माण, हैंडपंप स्थापना"
+                member: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available',
+                mobile: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available',
+                families: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available',
+                area: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available',
+                facilities: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available'
               };
               if (wardNum === 7) details = {
-                member: "श्री राजेश कुमार",
-                mobile: "9876543213",
-                families: "45 घर",
-                area: "ग्राम चौक से पूर्व",
-                facilities: "सड़क निर्माण जारी, 15 नई लाइटें"
+                member: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available',
+                mobile: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available',
+                families: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available',
+                area: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available',
+                facilities: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available'
               };
               if (wardNum === 8) details = {
-                member: "श्रीमती रेखा देवी",
-                mobile: "9876543214",
-                families: "38 घर",
-                area: "प्राथमिक विद्यालय के पास",
-                facilities: "नई पाइपलाइन, बच्चों का पार्क निर्माण"
+                member: lang === 'hi' ? 'श्री रंजेश सिंह' : 'Shree Ranjesh Singh',
+                mobile: lang === 'hi' ? 'जानकारी उपलब्ध नहीं' : 'Not available',
+                families: lang === 'hi' ? 'लगभग 100 घर' : 'About 100 houses',
+                area: lang === 'hi' ? 'प्राथमिक विद्यालय के पास' : 'Near primary school',
+                facilities: lang === 'hi' ? 'नई पाइपलाइन, बच्चों का पार्क निर्माण' : 'New pipeline, children\'s park construction'
               };
               if (wardNum === 9) details = {
-                member: "श्री सुनील कुमार",
-                mobile: "9876543215",
-                families: "42 घर",
-                area: "स्वास्थ्य केंद्र के पास",
-                facilities: "नया डिस्पेंसरी, शौचालय निर्माण"
+                member: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available',
+                mobile: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available',
+                families: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available',
+                area: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available',
+                facilities: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available'
               };
               if (wardNum === 10) details = {
-                member: "श्री अमित कुमार",
-                mobile: "9876543217",
-                families: "40 घर",
-                area: "कृषि क्षेत्र",
-                facilities: "सिंचाई सुविधा, छोटा बाजार विकास"
+                member: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available',
+                mobile: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available',
+                families: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available',
+                area: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available',
+                facilities: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available'
+              };
+              if ([11, 12, 13, 14, 15, 16, 17, 18, 19].includes(wardNum)) details = {
+                member: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available',
+                mobile: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available',
+                families: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available',
+                area: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available',
+                facilities: lang === 'hi' ? 'कोई डेटा उपलब्ध नहीं' : 'Not available'
               };
               return (
                 <div key={wardNum} className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-blue-500">
