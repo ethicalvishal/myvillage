@@ -46,29 +46,43 @@ function Home() {
       number: '2,500+',
       label: i18n.language === 'hi' ? 'कुल जनसंख्या' : 'Total Population',
       subtitle: i18n.language === 'hi' ? '400+ परिवार' : '400+ Families',
-      color: 'from-primary-500 to-primary-600'
+      color: 'bg-green-500' // solid green
     },
     {
       icon: '🏫',
-      number: '2',
+      number: '3',
       label: i18n.language === 'hi' ? 'सरकारी स्कूल' : 'Government Schools',
       subtitle: i18n.language === 'hi' ? '500+ छात्र' : '500+ Students',
-      color: 'from-accent-500 to-accent-600'
+      color: 'from-blue-400 via-blue-500 to-blue-600' // blue gradient
     },
     {
       icon: '🌾',
       number: '150',
       label: i18n.language === 'hi' ? 'हेक्टेयर कृषि भूमि' : 'Hectares Farmland',
       subtitle: i18n.language === 'hi' ? 'मुख्य फसलें' : 'Main Crops',
-      color: 'from-secondary-500 to-secondary-600'
+      color: 'bg-yellow-500' // solid yellow
     },
     {
       icon: '🛕',
       number: '3',
       label: i18n.language === 'hi' ? 'प्राचीन मंदिर' : 'Ancient Temples',
       subtitle: i18n.language === 'hi' ? '100+ वर्ष पुराने' : '100+ Years Old',
-      color: 'from-orange-400 via-yellow-300 to-red-500'
-    }
+      color: 'bg-orange-400' // solid orange
+    },
+    {
+      icon: '🏪',
+      number: '',
+      label: i18n.language === 'hi' ? 'महनवा बाजार' : 'Mahanwa Bazaar',
+      subtitle: i18n.language === 'hi' ? 'गाँव का प्रसिद्ध बाजार' : 'Famous village market',
+      color: 'bg-pink-400' // solid pink
+    },
+    {
+      icon: '🏬',
+      number: '',
+      label: i18n.language === 'hi' ? 'सिरिस चौक' : 'Siris Chowk',
+      subtitle: i18n.language === 'hi' ? 'नरियारवा पेट्रोल पंप के पास' : 'Near Nariyarwa Petrol Pump',
+      color: 'bg-cyan-500' // solid cyan
+    },
   ];
 
   const features = [
@@ -88,8 +102,8 @@ function Home() {
       description: i18n.language === 'hi' ? 'उच्च गुणवत्ता वाली शिक्षा और छात्रवृत्तियाँ' : 'High-quality education and scholarships',
       color: 'accent',
       details: {
-        hi: 'गाँव में दो सरकारी स्कूल हैं जहाँ 500+ छात्र पढ़ते हैं। छात्रवृत्ति योजनाओं और प्रतियोगी परीक्षाओं के लिए मार्गदर्शन भी उपलब्ध है। शिक्षा के क्षेत्र में गाँव के कई छात्र-छात्राओं ने जिले और राज्य स्तर पर नाम रोशन किया है।',
-        en: 'The village has two government schools with over 500 students. Guidance for scholarships and competitive exams is available. Many students from the village have excelled at district and state levels.'
+        hi: 'गाँव में तीन सरकारी स्कूल हैं जहाँ 500+ छात्र पढ़ते हैं। छात्रवृत्ति योजनाओं और प्रतियोगी परीक्षाओं के लिए मार्गदर्शन भी उपलब्ध है। शिक्षा के क्षेत्र में गाँव के कई छात्र-छात्राओं ने जिले और राज्य स्तर पर नाम रोशन किया है।',
+        en: 'The village has three government schools with over 500 students. Guidance for scholarships and competitive exams is available. Many students from the village have excelled at district and state levels.'
       }
     },
     {
@@ -717,4 +731,4 @@ function Home() {
   );
 }
 
-export default Home; 
+export default Home;
