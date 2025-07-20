@@ -273,7 +273,7 @@ function Panchayat() {
             {i18n.language === 'hi' ? 'ग्राम वार्ड विवरण' : 'Village Ward Details'}
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[...Array(22)].slice(0, showAll ? 22 : 3).map((_, idx) => {
+            {[...Array(19)].slice(0, showAll ? 19 : 3).map((_, idx) => {
               const wardNum = idx + 1;
               let details = {
                 member: "कोई डेटा उपलब्ध नहीं",

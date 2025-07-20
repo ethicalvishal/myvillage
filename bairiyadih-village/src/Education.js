@@ -19,58 +19,87 @@ function Education() {
   const schools = [
     {
       icon: '🏫',
+      hi: 'सरकारी उच्च विद्यालय',
+      en: 'Government High School',
+      descHi: 'कक्षा 1-10 तक की शिक्षा',
+      descEn: 'Education from Class 1-10',
+      details: {
+        hi: {
+          location: 'बैरियाडीह',
+          address: 'बैरियाडीह, थाना हरसिद्धि, पूर्वी चंपारण, बिहार - 845435',
+          principal: 'विकाश सर',
+          contact: 'जानकारी उपलब्ध नहीं',
+          facilities: ['अंग्रेजी शिक्षक: मिथिलेश सर', 'अन्य शिक्षक: जानकारी उपलब्ध नहीं'],
+          achievements: ['100% रिजल्ट', 'खेलकूद में भागीदारी'],
+          nearby: 'जानकारी उपलब्ध नहीं',
+          year: currentYear.toString()
+        },
+        en: {
+          location: 'Bairiyadih',
+          address: 'Bairiyadih, Thana Harsidhi, East Champaran, Bihar - 845435',
+          principal: 'Vikash Sir',
+          contact: 'Information not available',
+          facilities: ['English Teacher: Mithlesh Sir', 'Other teachers: Not known'],
+          achievements: ['100% result', 'Participation in sports'],
+          nearby: 'Information not available',
+          year: currentYear.toString()
+        }
+      }
+    },
+    {
+      icon: '🏫',
+      hi: 'सरकारी मध्य विद्यालय',
+      en: 'Government Middle School',
+      descHi: 'कक्षा 1-8 तक की शिक्षा',
+      descEn: 'Education from Class 1-8',
+      details: {
+        hi: {
+          location: 'वार्ड नं. 8, बैरियाडीह',
+          address: 'बैरियाडीह, वार्ड नं. 8',
+          principal: 'जानकारी उपलब्ध नहीं',
+          contact: 'जानकारी उपलब्ध नहीं',
+          facilities: ['शिक्षक: बलिन्द्र सिंह', 'शिक्षिका: सीमा सिंह', 'अन्य शिक्षक: जानकारी उपलब्ध नहीं'],
+          achievements: ['अच्छा शैक्षणिक प्रदर्शन'],
+          nearby: 'बलीयाघाट शिव मंदिर के पास',
+          year: currentYear.toString()
+        },
+        en: {
+          location: 'Ward No. 8, Bairiyadih',
+          address: 'Bairiyadih, Ward No. 8',
+          principal: 'Not known',
+          contact: 'Not known',
+          facilities: ['Teacher: Balindra Singh', 'Teacher: Seema Singh', 'Other teachers: Not known'],
+          achievements: ['Good academic performance'],
+          nearby: 'Near Baliyaghat Shiv Mandir',
+          year: currentYear.toString()
+        }
+      }
+    },
+    {
+      icon: '🏫',
       hi: 'सरकारी प्राथमिक विद्यालय',
       en: 'Government Primary School',
       descHi: 'कक्षा 1-5 तक की शिक्षा',
       descEn: 'Education from Class 1-5',
       details: {
         hi: {
-          location: 'गाँव चौक के पास, बैरियाडीह',
-          address: 'बैरियाडीह, थाना हरसिद्धि, पूर्वी चंपारण, बिहार - 845435',
-          principal: 'जानकारी अपडेट की जा रही है',
-          contact: 'जानकारी अपडेट की जा रही है',
-          facilities: ['कंप्यूटर लैब', 'खेल मैदान', 'पुस्तकालय', 'मिड-डे मील', 'स्वच्छ पेयजल'],
-          achievements: [`${currentYear} में 100% परिणाम`, 'राज्य स्तर पर खेल प्रतियोगिता में पुरस्कार'],
-          nearby: 'जानकारी अपडेट की जा रही है',
+          location: 'वार्ड नं. 7, उत्तरवारी टोला, ताल पर',
+          address: 'वार्ड नं. 7, उत्तरवारी टोला, ताल पर',
+          principal: 'जानकारी उपलब्ध नहीं',
+          contact: 'जानकारी उपलब्ध नहीं',
+          facilities: ['शिक्षक: जानकारी उपलब्ध नहीं'],
+          achievements: ['जानकारी उपलब्ध नहीं'],
+          nearby: 'ताल के पास',
           year: currentYear.toString()
         },
         en: {
-          location: 'Near Village Square, Bairiyadih',
-          address: 'Bairiyadih, Thana Harsidhi, East Champaran, Bihar - 845435',
-          principal: 'Information being updated',
-          contact: 'Information being updated',
-          facilities: ['Computer lab', 'Playground', 'Library', 'Mid-day meal', 'Clean drinking water'],
-          achievements: [`100% result in ${currentYear}`, 'State-level sports competition award'],
-          nearby: 'Information being updated',
-          year: currentYear.toString()
-        }
-      }
-    },
-    {
-      icon: '🎓',
-      hi: 'सरकारी मिडिल स्कूल',
-      en: 'Government Middle School',
-      descHi: 'कक्षा 6-8 तक की शिक्षा',
-      descEn: 'Education from Class 6-8',
-      details: {
-        hi: {
-          location: 'वार्ड नंबर 8, बैरियाडीह',
-          address: 'बैरियाडीह, थाना हरसिद्धि, पूर्वी चंपारण, बिहार - 845435',
-          principal: 'श्री बलिंद्र सिंह',
-          contact: '+91 8340442470, 9955475759',
-          facilities: ['विज्ञान प्रयोगशाला', 'कंप्यूटर लैब', 'खेल मैदान', 'पुस्तकालय', 'स्मार्ट क्लास'],
-          achievements: [`${currentYear} में 2 राज्य स्तर टॉपर`, 'विज्ञान प्रदर्शनी में पुरस्कार'],
-          nearby: 'कोई डेटा उपलब्ध नहीं',
-          year: currentYear.toString()
-        },
-        en: {
-          location: 'Ward No. 8, Bairiyadih',
-          address: 'Bairiyadih, Thana Harsidhi, East Champaran, Bihar - 845435',
-          principal: 'Shri Balindra Singh',
-          contact: '+91 8340442470, 9955475759',
-          facilities: ['Science lab', 'Computer lab', 'Playground', 'Library', 'Smart class'],
-          achievements: [`2 state toppers in ${currentYear}`, 'Science exhibition award'],
-          nearby: 'No data available',
+          location: 'Ward No. 7, Utarwari Tola, Taal Par',
+          address: 'Ward No. 7, Utarwari Tola, Taal Par',
+          principal: 'Not known',
+          contact: 'Not known',
+          facilities: ['Teachers: Not known'],
+          achievements: ['Information not available'],
+          nearby: 'Near pond',
           year: currentYear.toString()
         }
       }
@@ -79,7 +108,7 @@ function Education() {
 
   const teachers = [
     {
-      icon: '👨‍��',
+      icon: '👨‍',
       hi: 'श्री बलिंद्र सिंह',
       en: 'Shri Balindra Singh',
       descHi: 'शिक्षक, मिडिल स्कूल',

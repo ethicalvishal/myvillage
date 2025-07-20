@@ -201,7 +201,8 @@ function About() {
                 <span role="img" aria-label="temple">⛩️</span>
                 </div>
                 <div>
-                  <div className="font-bold text-lg text-purple-800 mb-1">{lang === 'hi' ? 'प्राचीन मंदिर और धार्मिक स्थल' : 'Ancient temples and religious sites'}</div>
+                  <div className="font-bold text-lg text-purple-800 mb-1">{lang === 'hi' ? 'बलीयाघाट शिव मंदिर (वार्ड नं. 8)' : 'Baliyaghat Shiv Mandir (Ward No. 8)'}</div>
+                  <div className="text-gray-700">{lang === 'hi' ? 'यह मंदिर गाँव के प्रमुख धार्मिक स्थलों में से एक है।' : 'This temple is one of the main religious sites of the village.'}</div>
                 </div>
               </div>
               <div className="flex items-center gap-4 bg-white/90 rounded-2xl shadow-lg p-4 border-l-4 border-green-400 hover:scale-105 hover:shadow-2xl transition-all duration-300">
