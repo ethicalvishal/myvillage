@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import developerImg from './assets/developer.jpg';
 
 const Footer = () => {
   const { t, i18n } = useTranslation();
@@ -220,13 +221,17 @@ const Footer = () => {
       {/* Developer Credit */}
       <div className="bg-gradient-to-r from-neutral-900 to-neutral-800 text-white py-2">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row justify-between items-center space-y-1 sm:space-y-0">
-            <p className="text-sm text-neutral-400">
-              {lang === 'hi' 
-                ? '❤️ विशाल सिंह द्वारा प्रेम से विकसित'
-                : '❤️ Developed with love by Vishal Singh'
-              }
-            </p>
+          <div className="flex items-center justify-center gap-2 mt-4">
+            <img
+              src={developerImg}
+              alt="Vishal Singh"
+              className="w-8 h-8 rounded-full shadow object-cover border-2 border-pink-300 bg-white"
+              style={{ background: '#e0e7ff' }}
+            />
+            <span className="text-sm text-gray-200 flex items-center">
+              <span className="text-lg mr-1">❤️</span>
+              विशाल सिंह द्वारा प्रेम से विकसित
+            </span>
           </div>
         </div>
       </div>

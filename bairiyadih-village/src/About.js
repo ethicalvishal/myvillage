@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import DesignerCardBackground from './DesignerCardBackground';
+import developerImg from './assets/developer.jpg';
 
 function About() {
   const { i18n } = useTranslation();
@@ -251,6 +252,69 @@ function About() {
 
           {/* Development Timeline */}
           {/* REMOVE the entire DesignerCardBackground block for 'गाँव का इतिहास' / 'Village History' / 'विकास की समयरेखा' timeline section (vertical stepper with icons and years) */}
+        </div>
+      </div>
+      {/* Developer Section */}
+      <div className="max-w-2xl mx-auto mt-12 mb-12">
+        <div className="bg-gradient-to-br from-yellow-50 via-green-50 to-blue-50 border-2 border-orange-200 shadow-2xl rounded-3xl px-6 py-10 flex flex-col items-center gap-4">
+          {/* Heading */}
+          <div className="flex flex-col items-center mb-2">
+            <span className="text-5xl drop-shadow-md mb-2">🧑‍💻</span>
+            <h2
+              className="text-3xl md:text-4xl font-extrabold leading-relaxed text-center bg-gradient-to-r from-orange-600 via-yellow-500 to-green-600 bg-clip-text text-transparent animate-gradient-move tracking-wider"
+              style={{
+                fontFamily: 'Noto Sans Devanagari, Poppins, Inter, sans-serif',
+                lineHeight: 1.4,
+                wordSpacing: '0.12em',
+                letterSpacing: '0.01em',
+                padding: 0,
+                margin: 0,
+              }}
+            >
+              {lang === 'hi' ? 'डेवलपर - विशाल सिंह' : 'Developer - Vishal Singh'}
+            </h2>
+            <div className="w-32 h-1 bg-gradient-to-r from-orange-400 via-yellow-400 to-green-400 rounded-full my-2 animate-shimmer"></div>
+          </div>
+          {/* Photo */}
+          <img
+            src={developerImg}
+            alt="Developer Vishal Singh"
+            className="w-32 h-32 md:w-40 md:h-40 shadow-2xl object-cover border-4 border-blue-200 bg-white rounded-2xl mb-2 hover:scale-105 transition-transform duration-300"
+            style={{ background: '#e0e7ff' }}
+          />
+          {/* Subtitle */}
+          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-100 text-green-800 font-semibold text-sm shadow-sm mb-2">
+            <span role="img" aria-label="wave">👋</span>
+            {lang === 'hi' ? 'वेबसाइट निर्माता: विशाल सिंह' : 'Website Creator'}
+          </span>
+          {/* Intro */}
+          <div className="text-gray-700 text-base md:text-lg text-center mb-2">
+            {lang === 'hi'
+              ? 'नमस्ते! मैं विशाल सिंह, मोतिहारी से एक वेब डेवलपर और डिज़ाइनर हूँ। मुझे ग्रामीण भारत के लिए डिजिटल समाधान बनाना पसंद है। यह वेबसाइट गाँव के लोगों के लिए मेरी तरफ से एक छोटा सा प्रयास है।'
+              : 'Hi, I am Vishal Singh, a passionate web developer and designer from Motihari. I love building digital solutions for rural India. This website is my small effort for my village community.'}
+          </div>
+          {/* Contact Info */}
+          <div className="space-y-2 text-gray-700 text-base md:text-lg w-full max-w-md mx-auto">
+            <div className="flex items-center gap-2 justify-center">
+              <span className="text-green-600 text-xl">📱</span>
+              <span className="font-semibold">{lang === 'hi' ? 'फोन/व्हाट्सएप:' : 'Phone/WhatsApp:'}</span>
+              <a href="tel:9709851977" className="hover:underline text-green-700 font-bold">9709851977</a>
+            </div>
+            <div className="flex items-center gap-2 justify-center">
+              <span className="text-red-500 text-xl">✉️</span>
+              <span className="font-semibold">{lang === 'hi' ? 'ईमेल:' : 'Email:'}</span>
+              <a href="mailto:vishalmth097@gmail.com" className="hover:underline text-blue-700 font-bold">vishalmth097@gmail.com</a>
+            </div>
+            <div className="flex items-center gap-2 flex-wrap justify-center">
+              <span className="text-blue-600 text-xl">🔗</span>
+              <span className="font-semibold">{lang === 'hi' ? 'सोशल मीडिया:' : 'Social Media:'}</span>
+              <a href="https://wa.me/9709851977" target="_blank" rel="noopener noreferrer" className="hover:underline text-green-600 font-bold transition-colors duration-200">WhatsApp</a>
+              <span>|</span>
+              <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer" className="hover:underline text-blue-600 font-bold transition-colors duration-200">Facebook</a>
+              <span>|</span>
+              <a href="https://instagram.com/vishal_singh9709" target="_blank" rel="noopener noreferrer" className="hover:underline text-pink-600 font-bold transition-colors duration-200">Instagram</a>
+            </div>
+          </div>
         </div>
       </div>
     </main>

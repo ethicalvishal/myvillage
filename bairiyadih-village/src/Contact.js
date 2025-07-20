@@ -5,6 +5,7 @@ import { collection, addDoc, getDocs, deleteDoc, doc, serverTimestamp, query, or
 import { db } from './firebase';
 import ConfirmDialog from './ConfirmDialog';
 import DesignerCardBackground from './DesignerCardBackground';
+import developerImg from './assets/developer.jpg';
 
 function Contact() {
   const { i18n } = useTranslation();
@@ -658,63 +659,52 @@ function Contact() {
 
         {/* Contact Information Card */}
         <DesignerCardBackground variant="default">
-            <div className="flex flex-col items-center mb-4">
-              <div className="w-14 h-14 rounded-full bg-gradient-to-br from-green-400 via-yellow-300 to-blue-400 flex items-center justify-center shadow-lg mb-2 animate-pulse-gentle">
-                <span role="img" aria-label="developer" className="text-3xl">💡</span>
-              </div>
-              <h2
-                className="text-2xl md:text-3xl font-bold text-center mb-1 leading-relaxed py-2"
-                style={{
-                  fontFamily: 'Noto Sans Devanagari, Poppins, Inter, sans-serif',
-                  lineHeight: 1.35,
-                  letterSpacing: '0.5px',
-                  overflow: 'visible',
-                  whiteSpace: 'normal',
-                  WebkitTextStroke: '0.5px transparent'
-                }}
-              >
-                <span
-                  className="bg-gradient-to-r from-green-600 via-yellow-500 to-blue-600 bg-clip-text text-transparent animate-gradient-move"
-                  style={{
-                    display: 'inline-block',
-                    verticalAlign: 'middle',
-                    padding: '0 2px'
-                  }}
-                >
-                  {lang === 'hi' ? 'डेवलपर से संपर्क करें' : 'Contact with Developer'}
-                  <span className="block md:inline ml-1 font-bold tracking-tight">
-                    - {lang === 'hi' ? 'विशाल सिंह' : 'Vishal Singh'}
+              <div className="flex flex-col items-center gap-2 py-6 md:py-8 max-w-3xl mx-auto">
+                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-green-400 via-yellow-300 to-blue-400 flex items-center justify-center shadow-lg mb-2 animate-pulse-gentle mx-auto">
+                  <span role="img" aria-label="developer" className="text-3xl">💡</span>
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold mb-1 leading-relaxed py-2 text-center w-full">
+                  <span className="bg-gradient-to-r from-green-600 via-yellow-500 to-blue-600 bg-clip-text text-transparent animate-gradient-move">
+                    {lang === 'hi' ? 'डेवलपर से संपर्क करें' : 'Contact with Developer'}
+                    <span className="block md:inline ml-1 font-bold tracking-tight">
+                      - {lang === 'hi' ? 'विशाल सिंह' : 'Vishal Singh'}
+                    </span>
                   </span>
+                </h2>
+                <div className="w-24 h-1 bg-gradient-to-r from-green-400 via-yellow-400 to-blue-400 rounded-full my-2 mx-auto"></div>
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-100 text-green-800 font-semibold text-sm shadow-sm mt-1 mb-2">
+                  <span role="img" aria-label="wave">👋</span>
+                  {lang === 'hi' ? 'वेबसाइट निर्माता: विशाल सिंह' : 'Website Creator'}
                 </span>
-              </h2>
-              <div className="w-24 h-1 bg-gradient-to-r from-green-400 via-yellow-400 to-blue-400 rounded-full my-2 animate-shimmer"></div>
-              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-100 text-green-800 font-semibold text-sm shadow-sm mt-1">
-                <span role="img" aria-label="wave">👋</span>
-                {lang === 'hi' ? 'वेबसाइट निर्माता: विशाल सिंह' : 'Website Creator'}
-              </span>
-            </div>
-            <div className="space-y-2 text-gray-700 text-base md:text-lg">
-              <div className="flex items-center gap-2">
-                <span className="text-green-600 text-xl">📱</span>
-                <span className="font-semibold">{lang === 'hi' ? 'फोन/व्हाट्सएप:' : 'Phone/WhatsApp:'}</span>
-                <a href="tel:9709851977" className="hover:underline text-green-700">9709851977</a>
+                <img
+                  src={developerImg}
+                  alt="Developer Vishal Singh"
+                  className="w-32 h-32 md:w-40 md:h-40 shadow-xl object-cover border-4 border-blue-200 bg-white my-4"
+                  style={{ background: '#e0e7ff' }}
+                />
+                <div className="space-y-2 text-gray-700 text-base md:text-lg mt-2 w-full">
+                  <div className="flex items-center gap-2 justify-center">
+                    <span className="text-green-600 text-xl">📱</span>
+                    <span className="font-semibold">{lang === 'hi' ? 'फोन/व्हाट्सएप:' : 'Phone/WhatsApp:'}</span>
+                    <a href="tel:9709851977" className="hover:underline text-green-700">9709851977</a>
+                  </div>
+                  <div className="flex items-center gap-2 justify-center">
+                    <span className="text-red-500 text-xl">✉️</span>
+                    <span className="font-semibold">{lang === 'hi' ? 'ईमेल:' : 'Email:'}</span>
+                    <a href="mailto:vishalmth097@gmail.com" className="hover:underline text-blue-700">vishalmth097@gmail.com</a>
+                  </div>
+                  <div className="flex items-center gap-2 flex-wrap justify-center">
+                    <span className="text-blue-600 text-xl">🔗</span>
+                    <span className="font-semibold">{lang === 'hi' ? 'सोशल मीडिया:' : 'Social Media:'}</span>
+                    <a href="https://wa.me/9709851977" target="_blank" rel="noopener noreferrer" className="hover:underline text-green-600 font-bold">WhatsApp</a>
+                    <span>|</span>
+                    <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer" className="hover:underline text-blue-600 font-bold">Facebook</a>
+                    <span>|</span>
+                    <a href="https://instagram.com/vishal_singh9709" target="_blank" rel="noopener noreferrer" className="hover:underline text-pink-600 font-bold">Instagram</a>
+                  </div>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <span className="text-red-500 text-xl">✉️</span>
-                <span className="font-semibold">{lang === 'hi' ? 'ईमेल:' : 'Email:'}</span>
-                <a href="mailto:vishalmth097@gmail.com" className="hover:underline text-blue-700">vishalmth097@gmail.com</a>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-blue-600 text-xl">🔗</span>
-                <span className="font-semibold">{lang === 'hi' ? 'सोशल मीडिया:' : 'Social Media:'}</span>
-                <a href="https://wa.me/9709851977" target="_blank" rel="noopener noreferrer" className="hover:underline text-green-600 font-bold">WhatsApp</a>
-                <span>|</span>
-                <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer" className="hover:underline text-blue-600 font-bold">Facebook</a>
-                <span>|</span>
-                <a href="https://instagram.com/vishal_singh9709" target="_blank" rel="noopener noreferrer" className="hover:underline text-pink-600 font-bold">Instagram</a>
-              </div>
-            </div>
-          </DesignerCardBackground>
+            </DesignerCardBackground>
       </div>
 
       <ConfirmDialog
