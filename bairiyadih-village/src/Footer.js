@@ -109,7 +109,7 @@ const Footer = () => {
                   <span className="text-white text-2xl font-bold">🏘️</span>
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold font-display bg-gradient-to-r from-green-400 via-yellow-400 to-indigo-400 bg-clip-text text-transparent animate-gradient-x">
+                  <h2 className="text-2xl font-bold font-display bg-gradient-to-r from-green-400 via-yellow-400 to-indigo-400 bg-clip-text text-transparent animate-gradient-x hindi-heading">
                     {t('villageName')}
             </h2>
                   <p className="text-neutral-400 text-sm">
