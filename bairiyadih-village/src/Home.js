@@ -429,6 +429,7 @@ function Home() {
       </div>
 
       {/* Earning Opportunities Section */}
+      {/**
       <section className="max-w-5xl mx-auto mt-12 mb-16 px-4">
         <h2 className={`text-2xl lg:text-3xl font-bold text-center mb-6 gradient-text ${i18n.language === 'hi' ? 'hindi-heading' : ''}`}>
           {i18n.language === 'hi' ? 'कमाई के अवसर' : 'Earning Opportunities'}
@@ -455,6 +456,7 @@ function Home() {
           ))}
             </div>
       </section>
+      */}
 
       {/* Accent Divider */}
       <div className="w-full flex justify-center my-8">
